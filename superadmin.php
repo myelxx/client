@@ -32,6 +32,9 @@ $result = mysqli_query($con,"SELECT * FROM admin");
 
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
+  <!-- modal extensions -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 
@@ -179,18 +182,20 @@ $result = mysqli_query($con,"SELECT * FROM admin");
                   <?php
                   while($row = mysqli_fetch_array($result))
                   {
-                  echo "<tr>";
-                  echo "<td>" . $row['ID'] . "</td>";
-                  echo "<td>" . $row['username'] . "</td>";
-                  echo "<td>" . $row['first_name'] . "</td>";
-                  echo "<td>" . $row['last_name'] . "</td>";
-                  echo "<td>" . $row['birth_date'] . "</td>";
-                  echo "<td>" . $row['address'] . "</td>";
-                  echo "<td>" . $row['brgy'] . "</td>";
-                  echo "<td>" . $row['contact_no'] . "</td>";
-                  echo "<td> <a href=\"edit.php?id=$row[ID]\">Edit</a> | <a href=\"delete.php?id=$row[ID]\" onClick=\" return confirm('Are you sure you want to delete?')\">Delete</a></td>";
-                  echo "</tr>";
-
+                    $id = $row['ID'];
+                    echo "<tr>";
+                    echo "<td>" . $row['ID'] . "</td>";
+                    echo "<td>" . $row['username'] . "</td>";
+                    echo "<td>" . $row['first_name'] . "</td>";
+                    echo "<td>" . $row['last_name'] . "</td>";
+                    echo "<td>" . $row['birth_date'] . "</td>";
+                    echo "<td>" . $row['address'] . "</td>";
+                    echo "<td>" . $row['brgy'] . "</td>";
+                    echo "<td>" . $row['contact_no'] . "</td>";
+                    echo "<td> <a href='#edit$id' data-toggle='modal'>Update</a> | <a href=\"delete.php?id=$row[ID]\" onClick=\" return confirm('Are you sure you want to delete?')\">Delete</a></td>";
+                    include('modal/button.php');
+                    // echo "<td> <a href=\"edit.php?id=$row[ID]\">Edit</a> | <a href=\"delete.php?id=$row[ID]\" onClick=\" return confirm('Are you sure you want to delete?')\">Delete</a></td>";
+                    echo "</tr>";
                   }
                   ?> 
                

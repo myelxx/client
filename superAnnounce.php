@@ -1,33 +1,32 @@
 <?php
+include('db/connection.php');
+include('db/super-auth.php');
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "health";
+if (isset($_POST['btnsubmit'])){
 
-$con=mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-if (mysqli_connect_errno())
-{
-echo "Failed to connect to MySQL: " . mysqli_connect_error();
-}
+      $target =basename("images/".$_FILES['image']['name']);
 
-if (isset($_POST['announcement_what'])){
+      $images = "images/". $_FILES['image']['name'];
       $what = $_POST['announcement_what'];
-      $when = $_POST['announcement_when'];
+      $when = date("M d, Y", strtotime($_POST['announcement_when']));
       $where = $_POST['announcement_where'];
       $who = $_POST['announcement_who'];
-      
-       $sql = "INSERT into announcements VALUES ('','$what','$when','$where','$who','$status')";
+      $date_created = date('M d, Y');
+
+      if (move_uploaded_file("images/".$_FILES['image']['tmp_name'],$target)) {
+          $msg = "success";
+     }
+    
+     $sql = "INSERT INTO announcements (a_what,a_when,a_where,a_who,image,date_created) VALUES ('$what','$when','$where','$who','$images','$date_created')";
      $result = mysqli_query($con,$sql);
 
-  if ($con->query($sql) === TRUE) {
- $message ="Announcement Successfully Post!";
- echo "<script type='text/javascript'>alert('$message');</script>";
-  header("Refresh:0; url=announcement.php");
-} else {
-    echo "Error: " . $sql . "<br>" . $con->error;
-}
+      if ($con->query($sql) === TRUE) {
+      $message ="Announcement Successfully Post!";
+      echo "<script type='text/javascript'>alert('$message');</script>";
+      header("Refresh:0; url=announcement.php");
+      } else {
+          echo "Error: " . $sql . "<br>" . $con->error;
+      }
 
    }
 
@@ -61,109 +60,18 @@ if (isset($_POST['announcement_what'])){
 </head>
 
 <body id="page-top">
-
-  <nav class="navbar navbar-expand navbar-dark static-top" style="background-color:#008080">
-
-    <a class="navbar-brand mr-1" href="index.html">Admin-Panel</a>
-
-    <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-      <i class="fas fa-bars"></i>
-    </button>
-
-    <!-- Navbar Search -->
-    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-      <div class="input-group">
-        <div class="input-group-append">
-          </button>
-        </div>
-      </div>
-    </form>
-
-    <!-- Navbar -->
-    <ul class="navbar-nav ml-auto ml-md-0">
-      <li class="nav-item dropdown no-arrow mx-1">
-       
-      </li>
-      <h6 style="padding-top: 2px">Log out</h6>
-      <li class="nav-item dropdown no-arrow">
-        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-user-circle fa-fw"></i>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
-        </div>
-      </li>
-    </ul>
-
-
-  </nav>
-
+  <!-- include the header -->
+  <?php include('navigation/super-header.php'); ?>
   <div id="wrapper">
-
-    <!-- Sidebar -->
-    <ul class="sidebar navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link w3-bar-item w3-button w3-border-bottom" href="superadmin.php">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span>
-        </a>
-      </li>
-      <br>
-      <br>
-      <li class="nav-item">
-        <a class="nav-link w3-bar-item w3-button w3-border-bottom"  href="admin.index.php">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Demographics</span></a>
-      </li>
-      <br>
-      <br>
-      <li class="nav-item">
-        <a class="nav-link w3-bar-item w3-button w3-border-bottom" href="heatmap.php">
-          <i class="fa fa-map-marker"></i>
-          <span>Heatmapping</span></a>
-        </li>
-        <br>
-      <br>
-          <li class="nav-item">
-        <a class="nav-link w3-bar-item w3-button w3-border-bottom" href="Announcement.php">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Announcement</span></a>
-        </li>
-        <br>
-      <br>
-         <li class="nav-item">
-        <a class="nav-link w3-bar-item w3-button w3-border-bottom" href="patients.php">
-          <i class="fa fa-male"></i>
-          <span>Residents Validated Data</span></a>
-        </li>
-        <br>
-      <br>
-          <li class="nav-item">
-        <a class="nav-link w3-bar-item w3-button w3-border-bottom" href="healthtips.php">
-          <i class="fa fa-male"></i>
-          <span>Healtht tips</span></a>
-        </li>
-        <br>
-      <br>
-            <li class="nav-item">
-          <a class="nav-link w3-bar-item w3-button w3-border-bottom" href="admincrowd.php">
-          <i class="fa fa-tasks"></i>
-          <span>Crowdsource Symptoms</span></a>
-        </li>
-      
-      </li>
-      </li>
-      </li>
-    </ul>
-
+  <!-- include the side nav -->
+  <?php include('navigation/super-nav.php'); ?>
     <div id="content-wrapper">
       <div class="container-fluid">
-      <h2>  <i class="fa fa-bullhorn"></i> Announcement</h2>
+    	<h2>  <i class="fa fa-bullhorn"></i> Announcement</h2>
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="superAnnounce.php">Announcements</a>
+           Announcements
           </li>
           <li class="breadcrumb-item">
           <a href="SuperAnnouncementview.php">Announcement list</a>
@@ -173,14 +81,10 @@ if (isset($_POST['announcement_what'])){
       <div class="container">
       <div class="col-md-12">
       <div class="panel panel-default">
-      <div class="panel-heading">
-         <div class="card-header" style="background-color:#008080">
-        <h3 class="panel-title">Input Announcement</h3>
-      </div>
-        <form action="" method="post">
+        <form action="" method="post" enctype="multipart/form-data">
               <div class="form-group">
                 <label for="exampleInputEmail">What</label>
-                <input type="username" class="form-control" placeholder="What" id="exampleInputEmail"  name="announcement_what" required="required">
+                <input type="username" class="form-control" placeholder="Enter what is the announcement..." id="exampleInputEmail"  name="announcement_what" required="required">
               </div>  
               
                <div class="form-group">
@@ -190,26 +94,39 @@ if (isset($_POST['announcement_what'])){
 
                <div class="form-group">
                 <label for="telephone">Where</label>
-                <input type="username" class="form-control" id="telephone" placeholder="Where" name="announcement_where" required="required">
+                <input type="username" class="form-control" id="telephone" placeholder="Enter when.." name="announcement_where" required="required">
               </div>
               <div class="form-group">
                 <label for="telephone">Who</label>
-                <input type="username" class="form-control" id="telephone" placeholder="Who" name="announcement_who" required="required">
+                <input type="username" class="form-control" id="telephone" placeholder="Enter who are involve..." name="announcement_who" required="required">
+                <br>
+                <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <div>
+                <input type="hidden" name="size" value="1000000">
               </div>
+              </div>
+              <div class="form-group">
+                <label for="telephone">Image attachment: </label>
+                <input type="file" name="image">
+              </div>
+          </div>
+                   </div>
               <center><button class="btn-lg btn-primary" type="submit" name="btnsubmit">Submit</button></center></form>
-            </div>
+          	</div>
             </div>
           </div>
 
 
       </div>
+      
       <!-- /.container-fluid -->
 
-      <!-- Sticky Footer -->
-      <footer class="sticky-footer">
+
+      <!-- <footer class="sticky-footer" style="background-color: #ffcc5c">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span><h2>Communicable disease Reduction & Environmental awareness<h2></span>
+            <span><h2 style="color: #fff;">Mandaluyong Health Center<h2></span>
           </div>
         </div>
       </footer>
@@ -238,7 +155,7 @@ if (isset($_POST['announcement_what'])){
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="Create.php">Logout</a>
+          <a class="btn btn-primary" href="db/logout.php?id=$_SESSION['id']">Logout</a>
         </div>
       </div>
     </div>

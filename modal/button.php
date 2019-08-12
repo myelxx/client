@@ -50,7 +50,7 @@
 							<label style="position:relative; top:7px;">Landline:</label>
 						</div>
 						<div class="col-lg-10">
-							<input type="text" name="land_line" class="form-control" value="<?php echo $erow['land_line']; ?>">
+							<input type="text" id="land_line" name="land_line" class="form-control" value="<?php echo $erow['land_line']; ?>" maxlength="13">
 						</div>
 					</div>
                     <div class="row">
@@ -59,7 +59,23 @@
 						</div>
 						<div class="col-lg-10">
 							<input type="text" name="contact_no" id="contact_no" class="form-control" value="<?php echo $erow['contact_no']; ?>" maxlength="13" required>
-                            <script src="../js/reg-num-only.js"></script>   
+							<!-- <script src="../js/reg-num-only.js"></script>    -->
+							<script>
+								$(document).ready(function(){
+									$('[id^=contact_no]').keypress(validateNumber);
+								});
+
+								function validateNumber(event) {
+									var key = window.event ? event.keyCode : event.which;
+									if (event.keyCode === 8 || event.keyCode === 46) {
+										return true;
+									} else if ( key < 48 || key > 57 ) {
+										return false;
+									} else {
+										return true;
+									}
+								};
+							</script>
                         </div>
 					</div>
 					<div style="height:10px;"></div>

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand navbar-dark  static-top" style="background-color:#008080">
 
-<a class="navbar-brand mr-1" href="admin.index.php">Super Admin - Panel</a>
+<a class="navbar-brand mr-1" href="superadmin.php">Super Admin - Panel</a>
 
 <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
   <i class="fas fa-bars"></i>

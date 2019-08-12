@@ -2,7 +2,7 @@
     <div class="sidebar"><!-- Sidebar -->
     <ul class="sidebar navbar-nav"> 
           <li class="nav-item active">
-        <a class="nav-link w3-bar-item w3-button w3-border-bottom" href="admin.index.php">
+        <a class="nav-link w3-bar-item w3-button w3-border-bottom" href="superadmin.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
@@ -26,7 +26,7 @@
       <br>
       <br>
           <li class="nav-item">
-        <a class="nav-link w3-bar-item w3-button w3-border-bottom" href="SuperAnnouncementview.php">
+        <a class="nav-link w3-bar-item w3-button w3-border-bottom" href="superAnnounce.php">
           <i class="fas fa-fw fa-table"></i>
           <span>Announcement</span></a>
         </li>

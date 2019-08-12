@@ -1,16 +1,7 @@
 <?php
+include('db/connection.php');
+include('db/super-auth.php');
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "health";
-
-$con=mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-if (mysqli_connect_errno())
-{
-echo "Failed to connect to MySQL: " . mysqli_connect_error();
-}
 $msg ="";
 if (isset($_POST['upload'])){
     
