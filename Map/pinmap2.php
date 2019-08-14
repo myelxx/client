@@ -36,6 +36,7 @@ echo '<input class=hidden id=Date2 value=' . $endDate . '/>';
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="map/js/googlemap.js"></script>
 	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 	<script>
