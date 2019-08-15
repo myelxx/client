@@ -25,6 +25,7 @@ session_start();
     {
       //added session for id, for authentication
       $_SESSION['id']= $row['ID'];
+      $_SESSION['sid'] = 1;
       $_SESSION['admin']= $username;
       $_SESSION['location'] = $row['brgy'];
       $admin = $_SESSION['admin'];

@@ -15,6 +15,20 @@ while($row = mysqli_fetch_array($result)){
   $announcement_img = $row['image'];
 }
 
+
+$sid = $_SESSION['sid'];  
+echo $_SESSION['sid'];
+$sql = "SELECT * FROM announcement_details WHERE id=$sid";
+$d_result = mysqli_query($con,$sql);
+
+while($row = mysqli_fetch_array($d_result)){
+  $greetings = $row['greetings'];
+  $first = $row['first'];
+  $second = $row['second'];
+  $third = $row['third'];
+  $fourth = $row['fourth'];
+  $fifth = $row['fifth'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -168,8 +182,9 @@ p {
 <div class="article"> 
 <img id="announcement_img" src="<?= $announcement_img ?>" alt="embedded_image">
 <p>
-Good day! We would like to announce that there will be a <?= $announcement_title ?> happening on <?= $announcement_when ?> at <?= $announcement_where ?> 
-held by <?= $announcement_who ?>.
+<!-- Good day! We would like to announce that there will be a <?= $announcement_title ?> happening on <?= $announcement_when ?> at <?= $announcement_where ?> 
+held by <?= $announcement_who ?>. -->
+<?php echo $greetings . $first . $announcement_title . $second . $announcement_when . $third .  $announcement_where  . $fourth . $announcement_who . "."  . $fifth . "."?>
 </p>
 </div>
 </div>

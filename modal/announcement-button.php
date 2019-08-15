@@ -135,7 +135,51 @@
         </div>
     </div>
 <!-- /.modal -->
+<!-- Settings -->
+<div class="modal fade" id="announcement_settings" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+			<div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Announcement Settings</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+				<div class="container-fluid">					
+					<div class="row">
+						<div class="col-lg-5">
+							<label>Current settings: </label>
+						</div>
+						<div class="col-lg-5" >
+							<p style="float:right;">Default (EN)</p>
+							<!-- <input type="file" name="image" required> -->
+						</div>
+					</div>
 
+					<div class="row">
+						<div class="col-lg-10">
+							<a href="modal/announcement-settings.php?sid=2" style="color:blue;position:relative; top:7px;"> Change default to Tagalog </a>
+							<a href="modal/announcement-settings.php?sid=1" style="color:blue;position:relative; top:7px;"> Change default to English </a>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-lg-10">
+							<a href="modal/announcement-settings.php?id=2" style="color:blue;position:relative; top:7px;"> Change default to custom </a>
+						</div>
+					</div>
+
+				</div> 
+				
+
+				</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                    <button type="submit" class="btn btn-warning"><span class="glyphicon glyphicon-check"></span> Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- /.modal -->
 <!--disable previous date -->
 <script>
 $(function(){

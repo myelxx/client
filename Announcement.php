@@ -1,7 +1,7 @@
 <?php
 include('db/connection.php');
 include('db/auth.php');
-
+echo $_SESSION['sid'];
 if (isset($_POST['btnsubmit'])){
 
       $target =basename("images/".$_FILES['image']['name']);
@@ -89,7 +89,7 @@ if (isset($_POST['btnsubmit'])){
               
                <div class="form-group">
                 <label for="telephone">When</label>
-                <input type="date" class="form-control" name="announcement_when" required="required">
+                <input type="date" class="form-control" id="when" name="announcement_when" required="required">
               </div>
 
                <div class="form-group">
@@ -180,6 +180,23 @@ if (isset($_POST['btnsubmit'])){
   <script src="js/demo/datatables-demo.js"></script>
   <script src="js/demo/chart-area-demo.js"></script>
 
+    <!--disable previous date -->
+    <script>
+    $(function(){
+        var dtToday = new Date();
+        
+        var month = dtToday.getMonth() + 1;
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear();
+        if(month < 10)
+            month = '0' + month.toString();
+        if(day < 10)
+            day = '0' + day.toString();
+        
+        var maxDate = year + '-' + month + '-' + day;
+      $('#when').attr('min', maxDate);
+    });
+    </script>
 </body>
 
 </html>
