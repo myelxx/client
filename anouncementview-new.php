@@ -53,8 +53,11 @@ include('db/auth.php');
               <h2>  <i class="fa fa-bullhorn"></i> Announcement</h2>
 						</div>
 						<div class="col-lg-6">
+              <a href='#announcement_settings' data-toggle='modal' class="btn btn-primary" data-toggle="tooltip" title="Announcement Settings" style="float:right; margin-left:1%;"><i class="fa fa-cog"></i></a>
               <a href='#add' data-toggle='modal' class="btn btn-primary" style="float:right;">Add New Announcement</a><br><br>
               <?php include('modal/announcement-button.php');?>
+             </div>
+            <div class="col-lg-1">
             </div>
 					</div>
         <!-- Breadcrumbs-->

@@ -2,6 +2,7 @@
 include('db/connection.php');
 include('db/auth.php');
 
+
 $id = $_GET['id'];
 $sql = "SELECT * FROM announcements WHERE id=" . $id;
 $result = mysqli_query($con,$sql);
@@ -15,9 +16,8 @@ while($row = mysqli_fetch_array($result)){
   $announcement_img = $row['image'];
 }
 
-
-$sid = $_SESSION['sid'];  
-echo $_SESSION['sid'];
+//changes language set up of announcement
+$sid = $_SESSION['sid'];
 $sql = "SELECT * FROM announcement_details WHERE id=$sid";
 $d_result = mysqli_query($con,$sql);
 

@@ -1,3 +1,12 @@
+<?php
+//changes language set up of announcement
+$sid = $_SESSION['sid'];
+$sql = "SELECT * FROM announcement_details WHERE id=$sid";
+$d_result = mysqli_query($con,$sql);
+while($row = mysqli_fetch_array($d_result)){
+	$key_name = $row['name'];
+}
+?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 <!-- Edit -->
@@ -150,23 +159,39 @@
 							<label>Current settings: </label>
 						</div>
 						<div class="col-lg-5" >
-							<p style="float:right;">Default (EN)</p>
-							<!-- <input type="file" name="image" required> -->
+							<?php
+								if($_SESSION['sid'] <= 2){
+									echo '<p style="float:right;">Default ('.$key_name.')</p>';
+								} 
+								else {
+									echo '<p style="float:right;">Custom ('.$key_name.')</p>';
+								}
+							?>	
 						</div>
 					</div>
 
 					<div class="row">
 						<div class="col-lg-10">
-							<a href="modal/announcement-settings.php?sid=2" style="color:blue;position:relative; top:7px;"> Change default to Tagalog </a>
-							<a href="modal/announcement-settings.php?sid=1" style="color:blue;position:relative; top:7px;"> Change default to English </a>
+						<?php
+							if($key_name == "EN"){
+								echo '<a href="modal/announcement-settings.php?sid=2" style="color:blue;position:relative; top:7px;"> Change default to Tagalog </a>';
+								echo '<br>';
+								echo '<a href="#" style="color:blue;position:relative; top:7px;"> Change default to Custom </a>';
+							} else if($key_name == "TG"){
+								echo '<a href="modal/announcement-settings.php?sid=1" style="color:blue;position:relative; top:7px;"> Change default to English </a>';
+								echo '<br>';
+								echo '<a href="#" style="color:blue;position:relative; top:7px;"> Change default to Custom </a>';
+							}
+							else {
+								echo '<a href="modal/announcement-settings.php?sid=2" style="color:blue;position:relative; top:7px;"> Change default to Tagalog </a>';
+								echo '<br>';
+								echo '<a href="modal/announcement-settings.php?sid=1" style="color:blue;position:relative; top:7px;"> Change default to English </a>';
+							}
+						?>
+							
 						</div>
 					</div>
 					
-					<div class="row">
-						<div class="col-lg-10">
-							<a href="modal/announcement-settings.php?id=2" style="color:blue;position:relative; top:7px;"> Change default to custom </a>
-						</div>
-					</div>
 
 				</div> 
 				

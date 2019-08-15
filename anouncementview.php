@@ -4,6 +4,7 @@ include('db/auth.php');
 
 //for this query on top so the date filter will get the date pick
 //query
+
 $sql = "SELECT * FROM announcements";
 // Date filter
 if(isset($_POST['but_search'])){
