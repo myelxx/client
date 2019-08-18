@@ -106,9 +106,10 @@ $query = mysqli_query($con, $sql);
                     <th>ID</th>
                     <th>Name</th>
                     <th>Disease</th>
+                    <th>Symptoms</th>
                     <th>Address</th>
                     <th>Date</th>
-                    <th>Function</th>
+                    <!-- <th>Function</th> -->
                   </tr>
                 </thead>
                
@@ -117,9 +118,10 @@ $query = mysqli_query($con, $sql);
                     <th>ID</th>
                     <th>Name</th>
                     <th>Disease</th>
+                    <th>Symptoms</th>
                     <th>Address</th>
                     <th>Date</th>
-                    <th>Function</th>
+                    <!-- <th>Function</th> -->
                   </tr>
                 </tfoot>
                  <?php
@@ -130,11 +132,12 @@ $query = mysqli_query($con, $sql);
                 echo "<tr>";
                 echo "<td>" . $row['patient_id'] . "</td>";
                 echo "<td>" . $row['firstname'] . ' ' .  $row['lastname']  . "</td>";
-                echo "<td>" . $row['disease_name'] . "</td>";
+                echo "<td>" . $row['predicted_disease'] . "</td>";
+                echo "<td>" . $row['symptoms'] . "</td>";
                 echo "<td>" . $row['address'] . "</td>";
                 echo "<td>" . date('M d, Y', strtotime($row['date_created'])) . "</td>";
-                echo "<td> <a href='#edit_validated$row[patient_id]' data-toggle='modal'>Update</a>  |  <a href=\"delete.php?a_id=$row[patient_id]\" onClick=\" return confirm('Are you sure you want to delete?')\">Delete</a></td>";
-                include('modal/crowdpatient-button.php');
+                // echo "<td> <a href='#edit$row[patient_id]' data-toggle='modal'>Update</a>  |  <a href=\"delete.php?a_id=$row[patient_id]\" onClick=\" return confirm('Are you sure you want to delete?')\">Delete</a></td>";
+                // include('modal/vcrowdpatient-button.php');
                 echo "</tr>";
                 }
               }

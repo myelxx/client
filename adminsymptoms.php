@@ -97,7 +97,8 @@ include('db/auth.php');
                   echo "<tr>";
                   echo "<td>" . $row['symptoms_id'] . "</td>";
                   echo "<td>" . $row['symptoms_name'] . "</td>";
-                  echo "<td> <a href='#edit$row[symptoms_id]' data-toggle='modal'>Update</a>  |  <a href=\"delete-crowdpatient.php?s_id=$row[symptoms_id]\" onClick=\" return confirm('Are you sure you want to delete?')\">Delete</a></td>";
+                  echo "<td> <a href='#edit_symptomson$row[symptoms_id]' data-toggle='modal'>Update</a>  |  <a href=\"delete-crowdpatient.php?s_id=$row[symptoms_id]\" onClick=\" return confirm('Are you sure you want to delete?')\">Delete</a></td>";
+                  include('modal/disease_symptoms/d-edit-button.php');
                   echo "</tr>";
                   }
                 }
