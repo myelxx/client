@@ -2,8 +2,7 @@
 include('db/connection.php');
 include('db/auth.php');
 
-$result = mysqli_query($con,"SELECT * FROM admin");
-
+$result = mysqli_query($con,"SELECT * FROM disease");
 ?>
 
 <!DOCTYPE html>
@@ -56,28 +55,18 @@ $result = mysqli_query($con,"SELECT * FROM admin");
                 <thead>
                   <tr>
                     <th>ID</th>
-                    <th>Username</th>
-                     <th>Email Address</th>
-                    <th>Name</th>
-                    <th>Birth date</th>
-                    <th>Address</th>
-                    <th>Contact number</th>
+                    <th>Disease Name</th>
+                     <th>Symptoms</th>
                     <th>function</th>
                   </tr>
                 </thead>
                
                 <tfoot>
                     <tr>
-                    <th>ID</th>
-                    <th>Username</th>
-                    <th>Email Address</th>
                     <th>Name</th>
                     <th>Birth date</th>
                     <th>Address</th>
                     <th>Contact number</th>
-                    <th>function</th>
-                    </div>
-             
                   </tr>
                
                 </tfoot>
@@ -85,16 +74,12 @@ $result = mysqli_query($con,"SELECT * FROM admin");
                   <?php
                   while($row = mysqli_fetch_array($result))
                   {
-                  $id = $row['ID'];
+                  $id = $row['disease_id'];
                   echo "<tr>";
-                  echo "<td>" . $row['ID'] . "</td>";
-                  echo "<td>" . $row['username'] . "</td>";
-                  echo "<td>" . $row['email_address'] . "</td>";
-                  echo "<td>" . $row['first_name'] . " " . $row['last_name']  . "</td>";
-                  echo "<td>" . date('M d, Y', strtotime($row['birth_date'])) . "</td>";
-                  echo "<td>" . $row['address'] . "</td>";
-                  echo "<td>" . $row['contact_no'] . "</td>";
-                  echo "<td> <a href='#edit$id' data-toggle='modal'>Update</a> | <a href=\"delete.php?id=$row[ID]\" onClick=\" return confirm('Are you sure you want to delete?')\">Delete</a></td>";
+                  echo "<td>" . $row['disease_id'] . "</td>";
+                  echo "<td>" . $row['disease_name'] . "</td>";
+                  echo "<td>" . $row['symptoms'] . "</td>";
+                  echo "<td> <a href='#edit$id' data-toggle='modal'>Update</a> | <a href=\"delete.php?id=$row[disease_id]\" onClick=\" return confirm('Are you sure you want to delete?')\">Delete</a></td>";
                   include('modal/button.php');
                   //echo "<td> <a href=\"edit.php?id=$row[ID]\">Update</a> | <a href=\"delete.php?id=$row[ID]\" onClick=\" return confirm('Are you sure you want to delete?')\">Delete</a></td>";
                   echo "</tr>";
@@ -109,14 +94,6 @@ $result = mysqli_query($con,"SELECT * FROM admin");
 
       </div>
 
-      <!-- Sticky Footer -->
-      <footer class="sticky-footer" style="background-color: #ffcc5c">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span><h2 style="color: #fff;">Mandaluyong Health Center</h2></span>
-          </div>
-        </div>
-      </footer>
 
     </div>
 

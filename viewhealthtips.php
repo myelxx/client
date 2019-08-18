@@ -79,7 +79,7 @@ $result = mysqli_query($con,$sql);
   #float_img {
     margin-right: 1%;
     float:right;
-    width: 30%;
+    width: 15%;
     max-width: 500px;
     max-height: 500px;
   }
@@ -97,7 +97,7 @@ $result = mysqli_query($con,$sql);
 <body id="page-top">
   <nav class="navbar navbar-expand navbar-dark  static-top" style="background-color:#4385C7">
 
-    <a href="admin.index.php" class="navbar-brand mr-1" href="admin.index.php">Admin - Panel</a>
+    <a href="viewtips.php" class="navbar-brand mr-1" href="admin.index.php">Admin - Panel</a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>
@@ -146,7 +146,7 @@ while($row = mysqli_fetch_array($result)){
     $date_Created = date("D F d,Y h:s A", strtotime($row['date_created']));
     $tips = $row['health_tips'];
     $source = $row['source'];
-    $image = $row['image'];
+    $image = $row['images'];
 ?>
 <div class="newspaper">
 <!-- title -->

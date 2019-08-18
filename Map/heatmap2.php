@@ -15,16 +15,15 @@
 	include 'map/connection.php';
 	$selectedDisease = "";
 
-	$sql = "SELECT * FROM heatmap  WHERE validate=1 AND disease LIKE '%$selectedDisease%'";
+	$sql = "SELECT * FROM patient p INNER JOIN disease d ON p.disease_id = d.disease_id WHERE status=1 AND d.disease_name LIKE '%$selectedDisease%' ";
 	// Date filter
 	if(isset($_POST['but_search'])){
 		$fromDate = $_POST['fromDate'];
 		$endDate = $_POST['endDate'];
 
-		if(!empty($fromDate) && !empty($endDate)){ $sql .= " AND date  between '".$fromDate."' and '".$endDate."' "; }
+		if(!empty($fromDate) && !empty($endDate)){ $sql .= " AND date_created  between '".$fromDate."' and '".$endDate."' "; }
 	}
-	// Sort
-	$sql .= "  ORDER BY id";
+
 	$query = mysqli_query($con, $sql);
 	
 	//Pin Point
@@ -143,7 +142,18 @@
 		<h3 class="title">Disease</h3>
 		<?php
 			//select distinct disease and its count
-			$sqlDisease = "SELECT disease, count(disease) count FROM heatmap GROUP BY disease";
+			$sqlDisease = "SELECT d.disease_name as disease, count(d.disease_name) as count FROM patient p INNER JOIN disease d ON p.disease_id = d.disease_id ";
+			// Date filter
+			if(isset($_POST['but_search'])){
+				$fromDate = $_POST['fromDate'];
+				$endDate = $_POST['endDate'];
+				
+
+				if(!empty($fromDate) && !empty($endDate)){ $sqlDisease .= " WHERE date_created  between '".$fromDate."' and '".$endDate."' "; }
+			}
+			// Sort
+			$sqlDisease .= " GROUP BY d.disease_name";
+			$query = mysqli_query($con, $sqlDisease);
 			$result = $con->query($sqlDisease);
 
 			if ($result->num_rows > 0) {
@@ -155,7 +165,10 @@
 				<?=$valueDisease?>
 					<span class="badge"><span class="badge-count">&nbsp;&nbsp;<?=$count?></span></span>
 			</button>
-		<?php }} ?>
+		<?php }} else {
+			echo '<button class="btnDisease">No disease</button>';
+		 }
+			?>
 	</div>
 
 	<div class="filterMap">		
@@ -180,7 +193,7 @@
 			&nbsp; &nbsp;
 			<select  style="width:40%" class="btn btn-primary dropdown-toggle" name="address">
 			<?php
-			$sql = "SELECT distinct(address) FROM heatmap";
+			$sql = "SELECT distinct(address) FROM patient";
 			$result = $con->query($sql);
 			if ($result->num_rows > 0) {
 				// output data of each row

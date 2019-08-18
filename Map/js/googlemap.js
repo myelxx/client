@@ -7,13 +7,14 @@ function loadMap() {
       zoom: 15,
 	  center: latLng,
 	  mapTypeId: google.maps.MapTypeId.ROADMAP
-    });
+	});
+	
 
     var cdata = JSON.parse(document.getElementById('data').innerHTML);
     geocoder = new google.maps.Geocoder();  
     codeAddress(cdata);
 
-    var allData = JSON.parse(document.getElementById('allData').innerHTML);
+	var allData = JSON.parse(document.getElementById('allData').innerHTML);
     showAllColleges(allData)
 }
 

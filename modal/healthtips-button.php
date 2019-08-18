@@ -43,8 +43,8 @@
 						</div>
 						<div class="col-lg-10">
 							<input type="file" name="image">
-							<input type="hidden" name="old_img" class="form-control" value="<?php echo $erow['image']; ?>" required>
-							<small> <?php echo $erow['image']; ?> </small>
+							<input type="hidden" name="old_img" class="form-control" value="<?php echo $erow['images']; ?>" required>
+							<small> <?php echo $erow['images']; ?> </small>
 						</div>
 					</div>
 					<br>

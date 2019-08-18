@@ -8,7 +8,7 @@
 		private $lat;
 		private $lng;
 		private $conn;
-		private $tableName = "heatmap";
+		private $tableName = "patient";
 
 		
 
@@ -41,16 +41,25 @@
 			$stmt->execute();
 			return $stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
+		
+
+		public function getAllStreetOfBarangay($fromDate,$endDate) {
+			//$sql = "SELECT address, disease_name, latitude as lat ,longitude as lng, COUNT(disease_name) as total FROM patient p INNER JOIN disease d ON p.disease_id = d.disease_id ";
+			//if(!empty($fromDate) && !empty($endDate)){ $sql .= " WHERE date_created  between '".$fromDate."' and '".$endDate."' ";}
+			//$sql .= " GROUP BY d.disease_name";
+			$sql = "SELECT address, latitude as lat, longitude as lng FROM $this->tableName";
+			$stmt = $this->conn->prepare($sql);
+			$stmt->execute();
+
+			return $stmt->fetchAll(PDO::FETCH_ASSOC);
+		}
 
 		public function getAllAddress($get_address,$fromDate,$endDate) {
-			$sql = "SELECT address, disease as disease_name , latitude as lat ,longitude as lng, COUNT(disease) as total 
-			FROM heatmap
-			WHERE address = '$get_address'
-		
-		   ";
-		  if(!empty($fromDate) && !empty($endDate)){ $sql .= " AND date  between '".$fromDate."' and '".$endDate."' ";}
-		  $sql .= "GROUP BY  address, disease
-		  HAVING COUNT(disease) > 0";
+			$sql = "SELECT address, disease_name, latitude as lat ,longitude as lng, COUNT(disease_name) as total FROM patient p INNER JOIN disease d ON p.disease_id = d.disease_id WHERE address = '$get_address'";
+		  
+			if(!empty($fromDate) && !empty($endDate)){ $sql .= " AND date_created  between '".$fromDate."' and '".$endDate."' ";}
+		  $sql .= "GROUP BY  address, disease_name
+		  HAVING COUNT(disease_name) > 0";
     
 			$stmt = $this->conn->prepare($sql);
 			$stmt->execute();

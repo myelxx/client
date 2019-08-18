@@ -18,13 +18,11 @@
           <span>Heatmapping</span></a>
         </li>
           <li class="nav-item">
-        <a class="nav-link w3-bar-item w3-button w3-border-bottom" href="Announcement.php">
+        <a class="nav-link w3-bar-item w3-button w3-border-bottom" href="anouncementview.php">
           <i class="fas fa-fw fa-table"></i>
           <span>Announcement</span></a>
         </li>
  
-      
-
          <li class="nav-item">
         <a class="nav-link w3-bar-item w3-button w3-border-bottom" href="viewtips.php">
           <i class="fas fa-fw fa-table"></i>
@@ -35,12 +33,16 @@
           <i class="fa fa-tasks"></i>
           <span>Crowdsourcing</span></a>
       </li>
-                    <li class="nav-item">
+      <li class="nav-item">
+          <a class="nav-link w3-bar-item w3-button w3-border-bottom" href="admindisease.php">
+          <i class="fa fa-tasks"></i>
+          <span>Disease & Symptoms</span></a>
+      </li>
+      <!-- <li class="nav-item">
           <a class="nav-link w3-bar-item w3-button w3-border-bottom" href="notif.php">
           <i class="fa fa-tasks"></i>
-          <span>Send Reports</span></a>
+          <span>Send Reports</span></a> -->
       </li>
-       
       </li>
       </li>
     </ul>

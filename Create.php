@@ -9,10 +9,10 @@ session_start();
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-
     $result = mysqli_query($conn,"SELECT *  from admin where username = '$username'");
     $row = mysqli_fetch_array($result);
      
+    //this can be deleted
     if($username == "superadmin" && $password == "superadmin")
     {
       $_SESSION['username']= $username;
@@ -21,7 +21,20 @@ session_start();
       exit;
     }
 
-    if($row['password'] == $password)
+    //created status in admin table -> 3 as superadmin; 
+    if($row['username'] == $username && $row['password'] == $password && $row['status'] == 3 )
+    {
+      $_SESSION['username'] = $username;
+      $_SESSION['super_id'] = 0;
+      if($row['status'] == 3){
+        $_SESSION['role'] = "Superadmin";
+      }
+      
+      header('location:superadmin.php');
+      exit;
+    }
+
+    if($row['username'] == $username && $row['password'] == $password && $row['status'] == 1 )
     {
       //added session for id, for authentication
       $_SESSION['id']= $row['ID'];
@@ -30,6 +43,11 @@ session_start();
       $_SESSION['location'] = $row['brgy'];
       $admin = $_SESSION['admin'];
       $location = $_SESSION['location'];
+
+      
+      if($row['status'] == 1){
+        $_SESSION['role'] = "Admin";
+      }
     
 
       $result2 =mysqli_query($conn,"SELECT *  from admin where admin = '$admin' AND location = '$location'");

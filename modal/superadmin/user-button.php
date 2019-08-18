@@ -39,11 +39,26 @@
 					</div>
                     <div class="row">
 						<div class="col-lg-2">
+							<label style="position:relative; top:7px;">Brgy:</label>
+						</div>
+						<div class="col-lg-10">
+							<input type="text" name="brgy" class="form-control" value="<?php echo $erow['brgy']; ?>" required>
+						</div>
+					</div>
+                    <div class="row">
+						<div class="col-lg-2">
+							<label style="position:relative; top:7px;">Landline:</label>
+						</div>
+						<div class="col-lg-10">
+							<input type="text" id="land_line" name="land_line" class="form-control" value="<?php echo $erow['land_line']; ?>" maxlength="13">
+						</div>
+					</div>
+                    <div class="row">
+						<div class="col-lg-2">
 							<label style="position:relative; top:7px;">Contact Number:</label>
 						</div>
 						<div class="col-lg-10">
 							<input type="text" name="contact_no" id="contact_no" class="form-control" value="<?php echo $erow['contact_no']; ?>" maxlength="13" required>
-							<!-- <script src="../js/reg-num-only.js"></script>    -->
 							<script>
 								$(document).ready(function(){
 									$('[id^=contact_no]').keypress(validateNumber);
@@ -69,6 +84,26 @@
 						</div>
 						<div class="col-lg-10">
 							<input type="text" name="address" class="form-control" value="<?php echo $erow['address']; ?>" required>
+						</div>
+					</div>
+                    <div class="row">
+						<div class="col-lg-2">
+							<label style="position:relative; top:7px;">Status:</label>
+						</div>
+						<div class="col-lg-10">
+							<label style="position:relative; top:7px;"> 
+								<?php if($erow['status'] == 1){ echo "Active"; } 
+									  if($erow['status'] == 0){ echo "Inactive"; } ?> 
+							</label>
+						</div>
+					</div>
+					
+                    <div class="row">
+						<div class="col-lg-12">
+							<a href="modal/superadmin/status-update.php?id=<?=$erow['ID']?>" style="position:relative; top:7px;color:blue;">Do you want to 
+							<?php if($erow['status'] == 0){ echo "activate this account?"; } 
+								  if($erow['status'] == 1){ echo "deactivate this account?"; } ?>
+							</a>
 						</div>
 					</div>
                 </div> 

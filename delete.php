@@ -1,17 +1,6 @@
-
-
 <?php
-$servername = "localhost";
-$dbusername = "root";
-$password = "";
-$dbname = "health";
+include('db/connection.php');
 
-$con=mysqli_connect($servername, $dbusername, $password, $dbname);
-// Check connection
-if (mysqli_connect_errno())
-{
-echo "Failed to connect to MySQL: " . mysqli_connect_error();
-}
 
 $ID = $_GET['id'];
 //separate ids differently

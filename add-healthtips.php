@@ -13,7 +13,7 @@
 	}
 	
 
-	mysqli_query($conn,"INSERT INTO `health_tips` (`ID`, `Title`, `health_tips`, `source`, `image`) VALUES (NULL, '$title', '$tips', '$source', '$image');");
+	mysqli_query($conn,"INSERT INTO `health_tips` (`ID`, `Title`, `health_tips`, `source`, `images`) VALUES (NULL, '$title', '$tips', '$source', '$image');");
 	header('location:viewtips.php');
 
 ?>

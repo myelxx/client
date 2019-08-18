@@ -22,7 +22,7 @@
 		echo "success";
 	}
 	
-	mysqli_query($conn,"update health_tips set health_tips='$tips', Title='$title', source='$source', image='$image', date_created=CURRENT_TIMESTAMP where ID=$ID");
+	mysqli_query($conn,"update health_tips set health_tips='$tips', Title='$title', source='$source', images='$image', date_created=CURRENT_TIMESTAMP where ID=$ID");
 	header('location:viewtips.php');
 
 ?>

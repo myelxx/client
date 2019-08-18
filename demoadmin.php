@@ -8,7 +8,7 @@ $row = mysqli_fetch_array($result);
 $result = mysqli_query($con,"SELECT COUNT(*) as total2 from announcements");
 $row2 = mysqli_fetch_array($result);
 
-$result = mysqli_query($con,"SELECT COUNT(*) as total3 from crowd_patient");
+$result = mysqli_query($con,"SELECT COUNT(*) as total3 from patient");
 $row3 = mysqli_fetch_array($result);
 ?>
 <!DOCTYPE html>

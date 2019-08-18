@@ -145,7 +145,7 @@
 		<h3 class="title">Disease</h3>
 		<?php
 			//select distinct disease and its count
-			$sqlDisease = "SELECT disease, count(disease) count FROM heatmap GROUP BY disease";
+			$sqlDisease = "SELECT d.disease_name as disease, count(d.disease_name) as count FROM patient p INNER JOIN disease d ON p.disease_id = d.disease_id GROUP BY d.disease_name";
 			$result = $con->query($sqlDisease);
 
 			if ($result->num_rows > 0) {
@@ -181,7 +181,7 @@
 			<input class="hidden" type="text" id="eDate" name="endDate">
 			<select  style="width:40%" class="btn btn-primary dropdown-toggle" name="address">
 			<?php
-			$sql = "SELECT distinct(address) FROM heatmap";
+			$sql = "SELECT distinct(address) FROM patient";
 			$result = $con->query($sql);
 			if ($result->num_rows > 0) {
 				// output data of each row

@@ -57,7 +57,7 @@ while($row = mysqli_fetch_array($d_result)){
 <body id="page-top">
   <nav class="navbar navbar-expand navbar-dark  static-top" style="background-color:#4385C7">
 
-    <a class="navbar-brand mr-1" href="admin.index.php">Admin - Panel</a>
+    <a class="navbar-brand mr-1" href="anouncementview.php">Admin - Panel</a>
 
     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
       <i class="fas fa-bars"></i>

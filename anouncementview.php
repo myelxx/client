@@ -2,6 +2,7 @@
 include('db/connection.php');
 include('db/auth.php');
 
+
 //for this query on top so the date filter will get the date pick
 //query
 
@@ -75,22 +76,21 @@ $result = mysqli_query($con,$sql);
             </div>
 					</div>
         <!-- Breadcrumbs-->
-        <ol class="breadcrumb">
+        <!-- <ol class="breadcrumb">
           <li class="breadcrumb-item">
             <a href="Announcement.php">Announcement</a>
           </li>
           <li class="breadcrumb-item">
           <a href="anouncementview.php">Announcement list</a>
           </a>
-        </ol>
+        </ol> -->
 
         <!--  filter date -->
         <form method='post' action='' style="margin-left:15px;" autocomplete="off">
             <label>Filter Date: &nbsp;</label>
-            <br>
             <input type='date' placeholder="Start Date" class='dateFilter' name='fromDate' id="fromDate" value='<?php if(isset($fromDate)){echo $fromDate; }?>' required>
 			      <input type='date' placeholder="End Date" class='dateFilter' name='endDate' id="endDate" value='<?php if(isset($endDate)) echo $endDate; ?>' required>
-			      <input type='submit' id="btnFilterDate" name='but_search' value='Filter Date' class='btn btn-primary'>
+			      <input type='submit' id="btnFilterDate" name='but_search' value='Filter' class='btn btn-primary'>
           </form>
           <br>
 
@@ -121,7 +121,7 @@ $result = mysqli_query($con,$sql);
               {
               $id = $row['ID'];
               echo "<tr>";
-              echo "<td>" . $row['a_when'] . "</td>";
+              echo "<td>" . date('M d, Y', strtotime($row['a_when'])) . "</td>";
               echo "<td>" . $row['a_what'] . "</td>";
               echo "<td>" . $row['a_where'] . "</td>";
               echo "<td>" . $row['a_who'] . "</td>";

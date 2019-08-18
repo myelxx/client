@@ -5,12 +5,12 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Update </h4>
+                    <h4 class="modal-title" id="myModalLabel">Update</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
 				<?php
-					$edit=mysqli_query($conn,"select * from announcements where ID=".$row['ID']."");
+					$edit=mysqli_query($conn,"select * from announcements where ID='".$row['ID']."'");
 					$erow=mysqli_fetch_array($edit);
 				?>
 				<div class="container-fluid">

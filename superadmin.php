@@ -3,7 +3,6 @@ include('db/connection.php');
 include('db/super-auth.php');
 
 $result = mysqli_query($con,"SELECT * FROM admin");
-
 ?>
 
 
@@ -193,7 +192,7 @@ $result = mysqli_query($con,"SELECT * FROM admin");
                     echo "<td>" . $row['brgy'] . "</td>";
                     echo "<td>" . $row['contact_no'] . "</td>";
                     echo "<td> <a href='#edit$id' data-toggle='modal'>Update</a> | <a href=\"delete.php?id=$row[ID]\" onClick=\" return confirm('Are you sure you want to delete?')\">Delete</a></td>";
-                    include('modal/button.php');
+                    include('modal/superadmin/user-button.php');
                     // echo "<td> <a href=\"edit.php?id=$row[ID]\">Edit</a> | <a href=\"delete.php?id=$row[ID]\" onClick=\" return confirm('Are you sure you want to delete?')\">Delete</a></td>";
                     echo "</tr>";
                   }

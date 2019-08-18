@@ -7,23 +7,25 @@
 ?>
  <?php if(isset($_POST['submit']))
  {
-  $get_address =  $_POST["address"]; 
-  $fromDate = $_POST['fromDate'];
- $endDate = $_POST['endDate'];
-echo '<input class=hidden id=Date1 value=' . $fromDate . '/>';
-echo '<input class=hidden id=Date2 value=' . $endDate . '/>';
 
- echo '<script> 
- $(document).ready(function(){
-	 $("#Date1").on("input", function(){
-		 $("#fDate").val($(this).val());
-	 });
-	 
-	 $("#Date2").on("input", function(){
-		 $("#eDate").val($(this).val());
-	 });
- });
- </script>';
+	$get_address =  $_POST["address"]; 
+	$fromDate = $_POST['fromDate'];
+	$endDate = $_POST['endDate'];
+
+	echo '<input class=hidden id=Date1 value=' . $fromDate . '/>';
+	echo '<input class=hidden id=Date2 value=' . $endDate . '/>';
+
+	echo '<script> 
+	$(document).ready(function(){
+		$("#Date1").on("input", function(){
+			$("#fDate").val($(this).val());
+		});
+		
+		$("#Date2").on("input", function(){
+			$("#eDate").val($(this).val());
+		});
+	});
+	</script>';
  } ?>
 <!DOCTYPE html>
 <html>
@@ -159,7 +161,18 @@ echo '<input class=hidden id=Date2 value=' . $endDate . '/>';
 		<form action="heatmap2.php" method="post">
 		<?php
 			//select distinct disease and its count
-			$sqlDisease = "SELECT disease, count(disease) count FROM heatmap GROUP BY disease";
+			$sqlDisease = "SELECT d.disease_name as disease, count(d.disease_name) as count FROM patient p INNER JOIN disease d ON p.disease_id = d.disease_id ";
+			// Date filter
+			if(isset($_POST['but_search'])){
+				$fromDate = $_POST['fromDate'];
+				$endDate = $_POST['endDate'];
+				
+
+				if(!empty($fromDate) && !empty($endDate)){ $sqlDisease .= " WHERE date_created  between '".$fromDate."' and '".$endDate."' "; }
+			}
+			// Sort
+			$sqlDisease .= " GROUP BY d.disease_name";
+			$query = mysqli_query($con, $sqlDisease);
 			$result = $con->query($sqlDisease);
 
 			if ($result->num_rows > 0) {
@@ -171,7 +184,10 @@ echo '<input class=hidden id=Date2 value=' . $endDate . '/>';
 				<?=$valueDisease?>
 					<span class="badge"><span class="badge-count"><?=$count?></span></span>
 			</button>
-			<?php }} ?>
+			<?php }} else {
+				echo '<button class="btnDisease">No disease</button>';
+			}
+			?>
 			</form>
 	</div>
 
@@ -188,30 +204,22 @@ echo '<input class=hidden id=Date2 value=' . $endDate . '/>';
 	</form>
   </div>
   <div class="col-xs-6" id="pinpoint">
-  &nbsp; &nbsp;<label>Filter Pinpoint: &nbsp;</label><br>
-  <form action="pinmap2.php" method="post">
-<input type='date' placeholder="Start Date" class='dateFilter hidden' name='fromDate' onchange="getValue()" id="fDate" value='<?php if(isset($fromDate)){echo $fromDate; }?>' > 
-<input type='date' placeholder="End Date" class='dateFilter hidden' name='endDate' onchange="getValue()" id="eDate" value='<?php if(isset($endDate)) echo $endDate; ?>' >
-&nbsp; &nbsp;<select style="width:40%" class="btn btn-primary dropdown-toggle" name="address">
-<?php
-include 'map/db/DbConnect.php';
-$sql = "SELECT distinct(address) FROM heatmap";
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-
-?>
-
-  <option <?php if ($get_address == $row["address"] ) echo 'selected' ; ?> value="<?php echo $row["address"];?>"><?php echo $row["address"];?></option>
-<?php }
-}
-else {
-    echo "0 results";
-}
-$conn->close();
-  ?>
-</select>
+  			&nbsp; &nbsp;<label>Filter Pinpoint: &nbsp;</label><br>
+			<form action="pinmap2.php" method="post">
+			<input type='date' placeholder="Start Date" class='dateFilter hidden' name='fromDate' onchange="getValue()" id="fDate" value='<?php if(isset($fromDate)){echo $fromDate; }?>' > 
+			<input type='date' placeholder="End Date" class='dateFilter hidden' name='endDate' onchange="getValue()" id="eDate" value='<?php if(isset($endDate)) echo $endDate; ?>' >
+			&nbsp; &nbsp;<select style="width:40%" class="btn btn-primary dropdown-toggle" name="address">
+			<option value="Barangay Bagong Silang"> Barangay Bagong Silang </option>
+			<?php
+			$sql = "SELECT distinct(address) FROM patient";
+			$result = $con->query($sql);
+			if ($result->num_rows > 0) {
+				// output data of each row
+				while($row = $result->fetch_assoc()) {
+			?>
+			<option <?php if ($get_address == $row["address"] ) echo 'selected' ; ?> value="<?php echo $row["address"];?>"><?php echo $row["address"];?></option>
+			<?php }}?>
+			</select>
  <input type="submit"  class="btn btn-primary" name="submit">
 </form>
 
@@ -219,15 +227,28 @@ $conn->close();
 </div>
 </div>
 		<?php 
+	
 			require 'map/map.php';
 			$edu = new map;
+			
 			$coll = $edu->getAddressBlankLatLng();
 			$coll = json_encode($coll, true);
 			echo '<div id="data">' . $coll . '</div>';
 
-			$allData = $edu->getAllAddress($get_address,$fromDate,$endDate);
-			$allData = json_encode($allData, true);
-			echo '<div id="allData">' . $allData . '</div>';			
+			
+			if($_POST['address'] == "Barangay Bagong Silang")
+			{
+				$allData = $edu->getAllStreetOfBarangay($fromDate,$endDate);
+				$allData = json_encode($allData, true);
+				echo '<div id="allData">' . $allData . '</div>';	
+			}
+			else 
+			{
+				$allData = $edu->getAllAddress($get_address,$fromDate,$endDate);
+				$allData = json_encode($allData, true);
+				echo '<div id="allData">' . $allData . '</div>';	
+			}
+					
 		 ?>
 		<div id="map"></div>
 </body>

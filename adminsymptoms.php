@@ -1,23 +1,6 @@
 <?php
 include('db/connection.php');
 include('db/auth.php');
-
-$sql = "SELECT * FROM patient INNER JOIN disease
-ON patient.disease_id = disease.disease_id WHERE patient.status = 0";
-
-// Date filter
-if(isset($_POST['but_search'])){
-  $fromDate = $_POST['fromDate'];
-  $endDate = $_POST['endDate'];
-
-  if(!empty($fromDate) && !empty($endDate)){ $sql .= " WHERE date_created  between '".$fromDate."' and '".$endDate."' "; }
-}
-
-// Sort
-$sql .= "  ORDER BY date_created";
-$query = mysqli_query($con, $sql);
-  
-
 ?>
 
 
@@ -63,38 +46,29 @@ $query = mysqli_query($con, $sql);
     <div class="container">
     <div clas="form-group">
   <div class="row">
-  <div class="col-md-10">
-    <h1 class="pink"><span class="fas fa-bullhorn"></span>Crowdsourcing</h1>
-    
-  </div>
+    <div class="col-lg-6">
+      <h1 class="pink"><span class="fas fa-bullhorn"></span>Symptoms</h1>
+		</div>
+		<div class="col-lg-6">      
+      <a href='#add_symptoms' data-toggle='modal' class="btn btn-primary" style="margin-top: 2%; float:right;">Add Symptoms</a><br><br>
+      <?php include('modal/disease-button.php');?>
+    </div>
   </div>
    </div>
-   </header>
- 
 
-       <div class="card mb-3">
+   <div class="card mb-3">
             <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            Not validated Data
+          <a href="admindisease.php">Disease</a>
           </li>
           <li class="breadcrumb-item">
-          <a href="admincrowd-validated.php">Validated</a>
-          </a>
-          <li class="breadcrumb-item">
-          <a href="admincrowd-report.php">Validated Data has a Communicable disease</a>
-          </a>
+            Symptoms
+          </li>
         </ol>
-            
-          </div>
-          <div class="card-body">
-          <!--  filter date -->
-          <form method='post' action='' style="margin-left:15px;" autocomplete="off">
-            <label>Filter Date: &nbsp;</label>
-            <input type='date' placeholder="Start Date" class='dateFilter' name='fromDate' id="fromDate" value='<?php if(isset($fromDate)){echo $fromDate; }?>' required>
-			      <input type='date' placeholder="End Date" class='dateFilter' name='endDate' id="endDate" value='<?php if(isset($endDate)) echo $endDate; ?>' required>
-			      <input type='submit' id="btnFilterDate" name='but_search' value='Filter Date' class='btn btn-primary'>
-          </form>
-          <br>
+    </div>
+
+<!--table -->
+<div class="card-body">
             <div class="panel-body">
             <table id="table_id" class="display">
             <div class="table-responsive">
@@ -102,10 +76,7 @@ $query = mysqli_query($con, $sql);
                 <thead>
                   <tr>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Disease</th>
-                    <th>Address</th>
-                    <th>Date</th>
+                    <th>Symptoms Name</th>
                     <th>Function</th>
                   </tr>
                 </thead>
@@ -113,51 +84,46 @@ $query = mysqli_query($con, $sql);
                 <tfoot>
                   <tr>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Disease</th>
-                    <th>Address</th>
-                    <th>Date</th>
+                    <th>Symptoms Name</th>
                     <th>Function</th>
                   </tr>
                 </tfoot>
                  <?php
-              $result = mysqli_query($con,$sql);
-              if(mysqli_num_rows($result) > 0){
-                while($row = mysqli_fetch_array($result))
-                {
-                echo "<tr>";
-                echo "<td>" . $row['patient_id'] . "</td>";
-                echo "<td>" . $row['firstname'] . ' ' .  $row['lastname']  . "</td>";
-                echo "<td>" . $row['disease_name'] . "</td>";
-                echo "<td>" . $row['address'] . "</td>";
-                echo "<td>" . date('M d, Y', strtotime($row['date_created'])) . "</td>";
-                echo "<td> <a href='#edit$row[patient_id]' data-toggle='modal'>Update</a>  |  <a href=\"delete.php?a_id=$row[patient_id]\" onClick=\" return confirm('Are you sure you want to delete?')\">Delete</a></td>";
-                include('modal/crowdpatient-button.php');
-                echo "</tr>";
-                }
-              }
-              else 
-              {
+                 $disease_query = "SELECT * FROM symptoms";
+                $disease_result = mysqli_query($con,$disease_query);
+                if(mysqli_num_rows($disease_result) > 0){
+                  while($row = mysqli_fetch_array($disease_result))
+                  {
                   echo "<tr>";
-                  echo "<td colspan=8'>No record found.</td>";
+                  echo "<td>" . $row['symptoms_id'] . "</td>";
+                  echo "<td>" . $row['symptoms_name'] . "</td>";
+                  echo "<td> <a href='#edit$row[symptoms_id]' data-toggle='modal'>Update</a>  |  <a href=\"delete-crowdpatient.php?s_id=$row[symptoms_id]\" onClick=\" return confirm('Are you sure you want to delete?')\">Delete</a></td>";
                   echo "</tr>";
-              }
-
-?> 
-
+                  }
+                }
+                else 
+                {
+                    echo "<tr>";
+                    echo "<td colspan=8'>No record found.</td>";
+                    echo "</tr>";
+                }
+            ?> 
 </table>
 </div>
 </div>
+<!-- end table -->
+
+
 </div>
       <!-- /.container-fluid -->
-
+<!-- 
    <footer class="sticky-footer" style="background-color: #ffcc5c">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
             <span><h2>Mandaluyong Health Center<h2></span>
             </div>
         </div>
-      </footer>
+      </footer> -->
 
     </div>
     <!-- /.content-wrapper -->

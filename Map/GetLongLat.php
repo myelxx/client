@@ -9,9 +9,9 @@ if(isset($_POST['action']) && !empty($_POST['action'])) {
 
 	if($action == 'getData')
 	{
-		$sql = "SELECT * FROM `heatmap` WHERE validate=1 AND disease LIKE '%$selectedDisease%' ";
+		$sql = "SELECT * FROM patient p INNER JOIN disease d ON p.disease_id = d.disease_id WHERE status=1 AND d.disease_name LIKE '%$selectedDisease%' ";
 		if($fromDate != "" && $endDate != "") {
-			$sql .= " AND (DATE(date) BETWEEN '". $fromDate ."' and '".$endDate. "')";
+			$sql .= " AND (DATE(date_created) BETWEEN '". $fromDate ."' and '".$endDate. "')";
 		} else 
 		{
 			$sql .= ""  ;
