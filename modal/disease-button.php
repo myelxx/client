@@ -32,18 +32,20 @@
                             $result = $con->query($sql);
 
                             //create array to sort the symptoms checkbox
-                            $symptoms_sorted_array = array();
+                            //$symptoms_sorted_array = array();
                             if ($result->num_rows > 0) {
                                 while($row = $result->fetch_assoc()) {
-                                    array_push($symptoms_sorted_array, $row["symptoms_name"]);
+                                    //array_push($symptoms_sorted_array, $row["symptoms_name"]);
+                            ?>
+                                    <input type="checkbox" name="symptoms[]" value="<?=$row["symptoms_id"];?>"> <?= $row["symptoms_name"];?> &nbsp; 
+
+                            <?php
                                 }
                             } 
                                 //sort array
-                                sort($symptoms_sorted_array);
-                                foreach($symptoms_sorted_array as $symptoms){
+                                //sort($symptoms_sorted_array);
+                                // foreach($symptoms_sorted_array as $symptoms){}
                             ?>
-                            <input type="checkbox" name="symptoms[]" value="<?=  $row["symptoms_id"];?>"> <?= $symptoms?> &nbsp; 
-                        <?php   } ?>
 						</div>
 					</div>
 				</div> 

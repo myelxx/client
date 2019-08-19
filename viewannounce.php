@@ -1,7 +1,5 @@
 <?php
 include('db/connection.php');
-include('db/auth.php');
-
 
 $id = $_GET['id'];
 $sql = "SELECT * FROM announcements WHERE id=" . $id;
@@ -17,7 +15,8 @@ while($row = mysqli_fetch_array($result)){
 }
 
 //changes language set up of announcement
-$sid = $_SESSION['sid'];
+// $sid = $_SESSION['sid'];
+$sid = 2;
 $sql = "SELECT * FROM announcement_details WHERE id=$sid";
 $d_result = mysqli_query($con,$sql);
 
@@ -80,12 +79,8 @@ while($row = mysqli_fetch_array($d_result)){
       <li class="nav-item dropdown no-arrow">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-user-circle fa-fw"></i>
-          <?= $_SESSION['admin']?>
-        </a>
+          <?php if(!empty( $_SESSION['admin'] )){ echo $_SESSION['admin']; } else { echo "Super Admin"; }?>        </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-          &nbsp;<?= $_SESSION['admin'] ?>
-          <br>
-          &nbsp;<?= $_SESSION['location'] ?>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
         </div>

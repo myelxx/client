@@ -3,6 +3,8 @@
 	
 	$name = $_POST['name'];
 
+	//this function loops the checkbox selected then store in a string variable th
+	//which is inserted in disease table
 	$symptoms_name = "";
 	foreach($_POST['symptoms'] as $check) {
 		$query = "SELECT * FROM symptoms WHERE symptoms_id=" . $check;
@@ -13,7 +15,7 @@
 		}
 		}
 	}
-	
+
 	//ADD TO THE DISEASE TABLE
 	$sql = "INSERT INTO `disease` (`disease_id`, `disease_name`, `symptoms`) VALUES (NULL, '$name', '$symptoms_name')";
 	if ($conn->query($sql) === TRUE) {

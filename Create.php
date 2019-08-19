@@ -17,12 +17,13 @@ session_start();
     {
       $_SESSION['username']= $username;
       $_SESSION['super_id']= 0;
+      $_SESSION['role'] = "Superadmin";
       header('location:superadmin.php');
       exit;
     }
 
     //created status in admin table -> 3 as superadmin; 
-    if($row['username'] == $username && $row['password'] == $password && $row['status'] == 3 )
+    if($row['username'] == $username && $row['password'] == $password && $row['status'] == 2 )
     {
       $_SESSION['username'] = $username;
       $_SESSION['super_id'] = 0;
@@ -40,7 +41,6 @@ session_start();
       $_SESSION['id']= $row['ID'];
       $_SESSION['sid'] = 1;
       $_SESSION['admin']= $username;
-      $_SESSION['location'] = $row['brgy'];
       $admin = $_SESSION['admin'];
       $location = $_SESSION['location'];
 

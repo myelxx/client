@@ -2,10 +2,20 @@
 include('db/connection.php');
 include('db/super-auth.php');
 
-$result = mysqli_query($con,"SELECT * FROM admin");
+
+//for dashboard
+$result = mysqli_query($con,"SELECT COUNT(*) as total from admin where status=1");
+$row1 = mysqli_fetch_array($result);
+
+$result = mysqli_query($con,"SELECT COUNT(*) as total2 from announcements WHERE date_created >= CURDATE()");
+$row2 = mysqli_fetch_array($result);
+
+$result = mysqli_query($con,"SELECT COUNT(*) as total3 from patient where status=1");
+$row3 = mysqli_fetch_array($result);
+
+$result = mysqli_query($con,"SELECT COUNT(*) as total4 from health_tips");
+$row4 = mysqli_fetch_array($result);
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -64,7 +74,7 @@ $result = mysqli_query($con,"SELECT * FROM admin");
                 <div class="card-body-icon">
                   <i class="fas fa-fw fa-users"></i>
                 </div>
-                <div class="mr-5">20 Registered Users</div>
+                <div class="mr-5"><?=$row1['total']?> Active Users</div>
               </div>
               <a class="card-footer text-white clearfix small z-1" href="#">
                 <span class="float-left">View Details</span>
@@ -80,7 +90,7 @@ $result = mysqli_query($con,"SELECT * FROM admin");
                 <div class="card-body-icon">
                   <i class="fas fa-fw fa-list"></i>
                 </div>
-                <div class="mr-5">11 Announcements</div>
+                <div class="mr-5"><?=$row2['total2']?> On-Going Announcements</div>
               </div>
               <a class="card-footer text-white clearfix small z-1" href="#">
                 <span class="float-left">View Details</span>
@@ -96,7 +106,7 @@ $result = mysqli_query($con,"SELECT * FROM admin");
                 <div class="card-body-icon">
                   <i class="fas fa-fw fa-shopping-cart"></i>
                 </div>
-                <div class="mr-5">Crowdsourcing user</div>
+                <div class="mr-5"><?=$row3['total3']?>  Health Tips</div>
               </div>
               <a class="card-footer text-white clearfix small z-1" href="#">
                 <span class="float-left">View Details</span>
@@ -112,7 +122,7 @@ $result = mysqli_query($con,"SELECT * FROM admin");
                 <div class="card-body-icon">
                   <i class="fas fa-fw fa-life-ring"></i>
                 </div>
-                <div class="mr-5">Residents Validated Data</div>
+                <div class="mr-5"><?=$row4['total4']?>  Crowd Sourcing Validated Data</div>
               </div>
               <a class="card-footer text-white clearfix small z-1" href="#">
                 <span class="float-left">View Details</span>
@@ -122,16 +132,6 @@ $result = mysqli_query($con,"SELECT * FROM admin");
               </a>
             </div>
           </div>
-        </div>
-        <!-- Area Chart Example-->
-        <div class="card mb-3">
-          <div class="card-header "style="background-color:#008080">
-            <i class="fas fa-table"></i>
-            Registered Users / Barangay</div>
-          <div class="card-body">
-          <!--INSERT GRAPH-->
-          </div>
-        
         </div>
 
         <!-- DataTables Example -->
@@ -145,43 +145,47 @@ $result = mysqli_query($con,"SELECT * FROM admin");
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
-                
                   <tr>
-                    <th>ID</th>
+                  <th>ID</th>
                     <th>Username</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Birth date</th>
+                     <th>Email Address</th>
+                    <th>Name</th>
+                    <th>Birthdate</th>
                     <th>Address</th>
-                    <th>Barangay</th>
                     <th>Contact number</th>
-                    <th>function</th>
-
+                    <th>Date Created</th>
+                    <th>Status</th>
+                    <th>Function</th>
                   </tr>
-                 
                 </thead>
                
                 <tfoot>
                     <tr>
                     <th>ID</th>
                     <th>Username</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Birth date</th>
+                    <th>Email Address</th>
+                    <th>Name</th>
+                    <th>Birthdate</th>
                     <th>Address</th>
-                    <th>Barangay</th>
                     <th>Contact number</th>
-                    <th>function</th>
-                    </div>
-             
+                    <th>Date Created</th>
+                    <th>Status</th>
+                    <th>Function</th>
                   </tr>
                
                 </tfoot>
                
                   <?php
+                  $result = mysqli_query($con,"SELECT * FROM admin");
                   while($row = mysqli_fetch_array($result))
                   {
                     $id = $row['ID'];
+                    if($row['status'] == 0 ) { 
+                      $status="Inactive"; 
+                    } else { 
+                      $status = "Active";
+                    }
+
                     echo "<tr>";
                     echo "<td>" . $row['ID'] . "</td>";
                     echo "<td>" . $row['username'] . "</td>";
@@ -189,8 +193,9 @@ $result = mysqli_query($con,"SELECT * FROM admin");
                     echo "<td>" . $row['last_name'] . "</td>";
                     echo "<td>" . $row['birth_date'] . "</td>";
                     echo "<td>" . $row['address'] . "</td>";
-                    echo "<td>" . $row['brgy'] . "</td>";
                     echo "<td>" . $row['contact_no'] . "</td>";
+                    echo "<td>" . date('M d, Y', strtotime($row['date_created'])) . "</td>";
+                    echo "<td>" . $status . "</td>";
                     echo "<td> <a href='#edit$id' data-toggle='modal'>Update</a> | <a href=\"delete.php?id=$row[ID]\" onClick=\" return confirm('Are you sure you want to delete?')\">Delete</a></td>";
                     include('modal/superadmin/user-button.php');
                     // echo "<td> <a href=\"edit.php?id=$row[ID]\">Edit</a> | <a href=\"delete.php?id=$row[ID]\" onClick=\" return confirm('Are you sure you want to delete?')\">Delete</a></td>";

@@ -8,40 +8,40 @@
       </li>
       
       <li class="nav-item">
-        <a class="nav-link w3-bar-item w3-button w3-border-bottom "href="demographics.php">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Demographics</span></a>
+        <a class="nav-link w3-bar-item w3-button w3-border-bottom"href="superadmin-demoadmin.php">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Dashboard</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link w3-bar-item w3-button w3-border-bottom" href="Superadmaps.php">
-            <i class="fa fa-map-marker"></i>
-            <span>Heatmapping</span></a>
+        <a class="nav-link w3-bar-item w3-button w3-border-bottom" href="superadmin-heatmap2.php">
+          <i class="fa fa-map-marker"></i>
+          <span>Heatmapping</span></a>
         </li>
           <li class="nav-item">
-          <a class="nav-link w3-bar-item w3-button w3-border-bottom" href="superAnnounce.php">
+        <a class="nav-link w3-bar-item w3-button w3-border-bottom" href="superadmin-anouncementview.php">
           <i class="fas fa-fw fa-table"></i>
           <span>Announcement</span></a>
         </li>
  
-      
-
          <li class="nav-item">
-         <a class="nav-link w3-bar-item w3-button w3-border-bottom" href="patients.php">
-          <i class="fa fa-male"></i>
-          <span>Residents Validated Data</span></a>
+        <a class="nav-link w3-bar-item w3-button w3-border-bottom" href="superadmin-viewtips.php">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Health tips</span></a>
         </li>
             <li class="nav-item">
-            <a class="nav-link w3-bar-item w3-button w3-border-bottom" href="healthtips.php">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Health tips</span></a>
+          <a class="nav-link w3-bar-item w3-button w3-border-bottom" href="superadmin-admincrowd.php">
+          <i class="fa fa-tasks"></i>
+          <span>Crowdsourcing</span></a>
       </li>
       <li class="nav-item">
-          <a class="nav-link w3-bar-item w3-button w3-border-bottom" href="admincrowd.php">
+          <a class="nav-link w3-bar-item w3-button w3-border-bottom" href="superadmindisease.php">
           <i class="fa fa-tasks"></i>
-          <span>Crowdsource Symptoms</span></a>
+          <span>Disease & Symptoms</span></a>
       </li>
-       
-      </li>
+      <li class="nav-item">
+          <a class="nav-link w3-bar-item w3-button w3-border-bottom" href="superadmin-outbreak.php">
+          <i class="fa fa-tasks"></i>
+          <span>Outbreak</span></a>
       </li>
     </ul>
 </div>

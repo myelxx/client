@@ -1,6 +1,6 @@
 <?php
 include('db/connection.php');
-include('db/auth.php');
+include('db/super-auth.php');
 
 $result = mysqli_query($con,"SELECT COUNT(*) as total from admin where status=1");
 $row = mysqli_fetch_array($result);
@@ -68,10 +68,10 @@ $row4 = mysqli_fetch_array($result);
 
 <body id="page-top">
   <!-- include the header -->
-  <?php include('navigation/header.php'); ?>
+  <?php include('navigation/super-header.php'); ?>
     <div id="wrapper">   
     <!-- include the side nav -->
-    <?php include('navigation/side-nav.php'); ?>
+    <?php include('navigation/super-nav.php'); ?>
 
     <div id="content-wrapper">
 

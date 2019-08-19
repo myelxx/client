@@ -102,7 +102,7 @@ include('db/auth.php');
                   echo "<td>" . $id . "</td>";
                   echo "<td>" . $row['disease_name'] . "</td>";
                   echo "<td>" . $row['symptoms'] . "</td>";
-                  echo "<td> <a href='#edit_disease$row[disease_id]' data-toggle='modal'>Update</a>  |  <a href=\"delete-crowdpatient.php?d_id=$row[disease_id]\" onClick=\" return confirm('Are you sure you want to delete?')\">Delete</a></td>";
+                  echo "<td> <a href='#edit_disease$row[disease_id]' data-toggle='modal'>Update</a>  |  <a href=\"delete-disease-symptom.php?d_id=$row[disease_id]\" onClick=\" return confirm('Are you sure you want to delete?')\">Delete</a></td>";
                   include('modal/disease_symptoms/d-edit-button.php');
                   echo "</tr>";
                   }

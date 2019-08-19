@@ -78,12 +78,12 @@ $query = mysqli_query($con, $sql);
             <a href="admincrowd.php">Not validated Data</a>
             </a> 
           </li>
-          <li class="breadcrumb-item">
+          <li class="breadcrumb-item"style="color:#005fb3;">
           Validated
           </li>
-          <li class="breadcrumb-item">
+          <!-- <li class="breadcrumb-item">
           <a href="admincrowd-report.php">Validated Data has a Communicable disease</a>
-          </a>
+          </a></li> -->
         </ol>
             
           </div>

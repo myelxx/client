@@ -1,6 +1,6 @@
 <?php
 include('db/connection.php');
-include('db/auth.php');
+include('db/super-auth.php');
 
 $sql = "SELECT * FROM patient WHERE status = 0";
 
@@ -55,10 +55,10 @@ $query = mysqli_query($con, $sql);
 
 <body id="page-top">
   <!-- include the header -->
-  <?php include('navigation/header.php'); ?>
+  <?php include('navigation/super-header.php'); ?>
     <div id="wrapper">   
     <!-- include the side nav -->
-    <?php include('navigation/side-nav.php'); ?>
+    <?php include('navigation/super-nav.php'); ?>
     <div class="container">
     <div clas="form-group">
   <div class="row">

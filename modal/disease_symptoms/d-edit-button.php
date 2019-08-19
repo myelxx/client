@@ -9,7 +9,7 @@
                 </div>
                 <div class="modal-body">
 				<?php
-					$edit=mysqli_query($conn,"select * from disease where disease_id='".$row['disease_id']."'");
+					$edit=mysqli_query($conn,"select * from disease where disease_id='".$erow['disease_id']."'");
 					$erow=mysqli_fetch_array($edit);
 				?>
 				<div class="container-fluid">
@@ -49,14 +49,17 @@
                             $s_result = $con->query($s_sql);
 
                             //create array to sort the symptoms checkbox
-                            $symptoms_sorted_array = array();
+                            $symptoms_id_sorted_array = array();
+                            $symptoms_name_sorted_array = array();
                             if ($s_result->num_rows > 0) {
                                 while($row = $s_result->fetch_assoc()) {
-                                    array_push($symptoms_sorted_array, $row["symptoms_name"]);
+                                    array_push($symptoms_id_sorted_array, $row["symptoms_id"]);
+                                    array_push($symptoms_name_sorted_array, $row["symptoms_name"]);
                                 }
                             } 
+                            $symptoms_sorted_array = array_combine($symptoms_id_sorted_array, $symptoms_name_sorted_array);
                             //sort array
-                            sort($symptoms_sorted_array);
+                            asort($symptoms_sorted_array);
 
                             $checked_value = "";
                             $checked = false;
@@ -70,11 +73,12 @@
                                 }
                                
                                 if (!$checked){
-                                    $check_box = "<input type='checkbox' name='symptoms[]' value='$symptoms'> $symptoms &nbsp;";
+                                    $check_box = "<input type='checkbox' name='symptoms[]' value='$symptoms_id'> $symptoms_name &nbsp;";
                                     echo $check_box;
                                 }
                                 $checked = false;
-                            }  
+                                
+                            } 
                             ?>
 
 						</div>

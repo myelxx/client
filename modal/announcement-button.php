@@ -138,12 +138,12 @@
 
 <?php
 //changes language set up of announcement
-$sid = $_SESSION['sid'];
-$sql = "SELECT * FROM announcement_details WHERE id=$sid";
-$d_result = mysqli_query($con,$sql);
-while($row = mysqli_fetch_array($d_result)){
-	$key_name = $row['name'];
-}
+// $sid = $_SESSION['sid'];
+// $sql = "SELECT * FROM announcement_details WHERE id=$sid";
+// $d_result = mysqli_query($con,$sql);
+// while($row = mysqli_fetch_array($d_result)){
+// 	$key_name = $row['name'];
+// }
 ?>
 
 <!-- Settings -->

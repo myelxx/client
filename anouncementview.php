@@ -68,7 +68,7 @@ $result = mysqli_query($con,$sql);
               <h2>  <i class="fa fa-bullhorn"></i> Announcement</h2>
 						</div>
 						<div class="col-lg-6">
-              <a href='#announcement_settings' data-toggle='modal' class="btn btn-primary" data-toggle="tooltip" title="Announcement Settings" style="float:right; margin-left:1%;"><i class="fa fa-cog"></i></a>
+              <!-- <a href='#announcement_settings' data-toggle='modal' class="btn btn-primary" data-toggle="tooltip" title="Announcement Settings" style="float:right; margin-left:1%;"><i class="fa fa-cog"></i></a> -->
               <a href='#add' data-toggle='modal' class="btn btn-primary" style="float:right;">Add New Announcement</a><br><br>
               <?php include('modal/announcement-button.php');?>
              </div>

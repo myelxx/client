@@ -29,4 +29,11 @@ if(isset($user_ID)){
     header("Location:admin.index.php");   
 }
 
+
+$outbreak_id = $_GET['o_id'];
+if(isset($outbreak_id)){
+    $resuslt1 = mysqli_query($con, "DELETE FROM outbreak WHERE outbreak_id=$outbreak_id");
+    header("Location:superadmin-outbreak.php");
+}
+
 ?>

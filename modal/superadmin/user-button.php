@@ -37,22 +37,22 @@
 							<input type="email" name="email" class="form-control" value="<?php echo $erow['email_address']; ?>" required>
 						</div>
 					</div>
-                    <div class="row">
+                    <!-- <div class="row">
 						<div class="col-lg-2">
 							<label style="position:relative; top:7px;">Brgy:</label>
 						</div>
 						<div class="col-lg-10">
 							<input type="text" name="brgy" class="form-control" value="<?php echo $erow['brgy']; ?>" required>
 						</div>
-					</div>
-                    <div class="row">
+					</div> -->
+                    <!-- <div class="row">
 						<div class="col-lg-2">
 							<label style="position:relative; top:7px;">Landline:</label>
 						</div>
 						<div class="col-lg-10">
 							<input type="text" id="land_line" name="land_line" class="form-control" value="<?php echo $erow['land_line']; ?>" maxlength="13">
 						</div>
-					</div>
+					</div> -->
                     <div class="row">
 						<div class="col-lg-2">
 							<label style="position:relative; top:7px;">Contact Number:</label>
