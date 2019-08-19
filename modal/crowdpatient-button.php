@@ -5,15 +5,15 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <label class="modal-title" id="myModalLabel">Update</label>
+                    <h4 class="modal-title" id="myModalLabel">Validate Patient Disease</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
 				<?php
                     $id = $row['patient_id']; 
-					$edit=mysqli_query($conn, "SELECT * FROM patient INNER JOIN disease ON patient.disease_id = disease.disease_id WHERE patient.status = 0 AND patient_id=".$id );
+					$edit=mysqli_query($conn, "SELECT * FROM patient WHERE patient_id=".$id );
                     $erow=mysqli_fetch_array($edit);
-                    $disease = $erow['disease_name']; 
+                    $disease = $erow['predicted_disease']; 
                     $name = $erow['firstname'] . ' ' . $erow['lastname']; 
 				?>
 				<div class="container-fluid">
@@ -60,8 +60,8 @@
 					</div>
 				</div>
                 <div class="modal-footer">
-                    <button type="submit" name="btnValidate" id="btnValidate" class="btn btn-warning"><span class="glyphicon glyphicon-check"></span> Validate</button>
-                    <button type="button" id="btnNotValidate" onclick="showPossibleDisease()" class="btn btn-default"  ><span class="glyphicon glyphicon-remove"></span> Not Validate</button>
+                    <button type="submit" name="btnValidate" id="btnValidate" class="btn btn-warning"><span class="glyphicon glyphicon-check"></span> Valid Disease </button>
+                    <button type="button" id="btnNotValidate" onclick="showPossibleDisease()" class="btn btn-default"  ><span class="glyphicon glyphicon-remove"></span> Not Valid Disease </button>
                 </div>
                 <script>
                 function showPossibleDisease() {

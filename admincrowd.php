@@ -2,8 +2,7 @@
 include('db/connection.php');
 include('db/auth.php');
 
-$sql = "SELECT * FROM patient INNER JOIN disease
-ON patient.disease_id = disease.disease_id WHERE patient.status = 0";
+$sql = "SELECT * FROM patient WHERE status = 0";
 
 // Date filter
 if(isset($_POST['but_search'])){

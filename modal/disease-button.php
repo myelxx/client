@@ -26,17 +26,24 @@
 						</div>
 
 						<div class="col-lg-9">
-                            <?php
+                         <?php
                             //select distinct disease and its count
                             $sql = "SELECT * FROM symptoms";
                             $result = $con->query($sql);
 
+                            //create array to sort the symptoms checkbox
+                            $symptoms_sorted_array = array();
                             if ($result->num_rows > 0) {
                                 while($row = $result->fetch_assoc()) {
-                                    $symptoms = $row["symptoms_name"];
+                                    array_push($symptoms_sorted_array, $row["symptoms_name"]);
+                                }
+                            } 
+                                //sort array
+                                sort($symptoms_sorted_array);
+                                foreach($symptoms_sorted_array as $symptoms){
                             ?>
-                            <input type="checkbox" name="symptoms[]" value="<?=  $row["symptoms_id"];?>"> <?= $symptoms?> &nbsp;
-                        <?php }} ?>
+                            <input type="checkbox" name="symptoms[]" value="<?=  $row["symptoms_id"];?>"> <?= $symptoms?> &nbsp; 
+                        <?php   } ?>
 						</div>
 					</div>
 				</div> 

@@ -142,17 +142,15 @@
 		<h3 class="title">Disease</h3>
 		<?php
 			//select distinct disease and its count
-			$sqlDisease = "SELECT d.disease_name as disease, count(d.disease_name) as count FROM patient p INNER JOIN disease d ON p.disease_id = d.disease_id ";
+			$sqlDisease = "SELECT predicted_disease as disease, count(predicted_disease) as count FROM patient";
 			// Date filter
 			if(isset($_POST['but_search'])){
 				$fromDate = $_POST['fromDate'];
 				$endDate = $_POST['endDate'];
-				
 
 				if(!empty($fromDate) && !empty($endDate)){ $sqlDisease .= " WHERE date_created  between '".$fromDate."' and '".$endDate."' "; }
-			}
-			// Sort
-			$sqlDisease .= " GROUP BY d.disease_name";
+			} 
+			$sqlDisease .= " GROUP BY predicted_disease";
 			$query = mysqli_query($con, $sqlDisease);
 			$result = $con->query($sqlDisease);
 
@@ -168,7 +166,7 @@
 		<?php }} else {
 			echo '<button class="btnDisease">No disease</button>';
 		 }
-			?>
+		?>
 	</div>
 
 	<div class="filterMap">		

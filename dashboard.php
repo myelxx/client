@@ -38,13 +38,13 @@ $result = $sth->fetchAll(PDO::FETCH_OBJ);
 
 
 <!-- Example Pie Chart Card-->
-<div class="card mb-3" id="sentAdvisoryDiv" >
+<div class="card mb-3" id="firstDiv" >
 	<div class="card-header">
-		<i class="fa fa-bar-chart"></i> Bar Graph for Sent Advisories & Alert per Area</div>
+		<i class="fa fa-bar-chart"></i> Bar Graph for Total Count per 	Disease</div>
 		<div class="card-body">
 			<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 			
-			<form name="filter" method="POST" action="dashboard.php#sentAdvisoryDiv">
+			<form name="filter" method="POST" action="dashboard.php#firstDiv">
 					<div class="d-inline-block">
 					<p>Filter the dashboard:</p>
 					</div>
@@ -147,7 +147,7 @@ $result = $sth->fetchAll(PDO::FETCH_OBJ);
 					array('Disease', 'Count')
 				);
 
-				$disease_sql = "SELECT d.disease_name as disease, count(d.disease_name) as disease_count FROM patient p INNER JOIN disease d ON p.disease_id = d.disease_id ".$filterDate." GROUP BY d.disease_name ";
+				$disease_sql = "SELECT predicted_disease as disease, count(predicted_disease) as disease_count FROM patient ".$filterDate." GROUP BY  predicted_disease";
 				$disease_result = $conn->query($disease_sql);
 					if ($disease_result->num_rows > 0) {
 						// output data of each row
@@ -213,8 +213,8 @@ $result = $sth->fetchAll(PDO::FETCH_OBJ);
 					  if($filterHolder=='Yearly'){echo "Yearly Report - Year ". $current_year;}
 					} else {echo "Yearly - Year " . $current_year;}?>',
 				  is3D:true,
-				  vAxis: {title: 'Number of Advisory and Alert'},
-				  hAxis: {title: 'Area'
+				  vAxis: {title: 'Total Disease Count'},
+				  hAxis: {title: 'Disease Type'
 				  },
 				  colors: ['#800000','#e6194b','#3cb44b'],
 				  seriesType: 'bars',
@@ -229,7 +229,7 @@ $result = $sth->fetchAll(PDO::FETCH_OBJ);
 </div>
 
 <!-- Example Pie Chart Card-->
-<div class="card mb-3" id="colorCodeDiv">
+<div class="card mb-3" id="secondDiv">
 	<div class="card-header">
 		<i class="fa fa-area-chart"></i>Area Chart for disease indication per year</div>
 		<div class="card-body">
@@ -250,7 +250,7 @@ $result = $sth->fetchAll(PDO::FETCH_OBJ);
 						// output data of each row
 						while($row = $disease_result->fetch_assoc()) {
 					?>
-					<option <?php if(!empty($_POST['disease_list'])){ echo 'selected' ;}  ?> value="<?php echo $row["disease_name"];?>"><?php echo $row["disease_name"];?></option>
+					<option <?php if(!empty($displayed_disease)){ echo 'selected' ;}  ?> value="<?php echo $row["disease_name"];?>"><?php echo $row["disease_name"];?></option>
 					<?php }}?>
 					</select>
 					</div>
@@ -277,21 +277,21 @@ $result = $sth->fetchAll(PDO::FETCH_OBJ);
 				$twoYearBefore = date ( 'Y' , $two );
 				$three = strtotime ( '-3 years' , strtotime ( $curdate ) ) ;
 				$threeYearBefore = date ( 'Y' , $three );
-			
+				
 				//disease cur app report
-				$stmt = $conPDO->query('SELECT * FROM patient p INNER JOIN disease d ON p.disease_id = d.disease_id WHERE d.disease_name="'.$displayed_disease.'" AND year(date_created)='. $curyear); 
+				$stmt = $conPDO->query('SELECT * FROM patient WHERE predicted_disease="'.$displayed_disease.'" AND year(date_created)='. $curyear); 
 				$row_count = $stmt->rowCount();
 				$disease_cur = $row_count;
 				//disease one app report
-				$stmt = $conPDO->query('SELECT * FROM `patient` p  INNER JOIN disease d ON p.disease_id = d.disease_id WHERE d.disease_name="'.$displayed_disease.'" AND year(date_created)='. $oneYearBefore); 
+				$stmt = $conPDO->query('SELECT * FROM patient WHERE predicted_disease="'.$displayed_disease.'" AND year(date_created)='. $oneYearBefore); 
 				$row_count = $stmt->rowCount();
 				$disease_one = $row_count;
 				//disease two app report
-				$stmt = $conPDO->query('SELECT * FROM `patient`p INNER JOIN disease d ON p.disease_id = d.disease_id WHERE d.disease_name="'.$displayed_disease.'" AND year(date_created)='. $twoYearBefore); 
+				$stmt = $conPDO->query('SELECT * FROM patient WHERE predicted_disease="'.$displayed_disease.'" AND year(date_created)='. $twoYearBefore); 
 				$row_count = $stmt->rowCount();
 				$disease_two = $row_count;
 				//disease three app report
-				$stmt = $conPDO->query('SELECT * FROM `patient` p  INNER JOIN disease d ON p.disease_id = d.disease_id WHERE d.disease_name="'.$displayed_disease.'	" AND year(date_created)='. $threeYearBefore); 
+				$stmt = $conPDO->query('SELECT * FROM patient WHERE predicted_disease="'.$displayed_disease.'	" AND year(date_created)='. $threeYearBefore); 
 				$row_count = $stmt->rowCount();
 				$disease_three = $row_count;
 			?>
@@ -341,7 +341,7 @@ $result = $sth->fetchAll(PDO::FETCH_OBJ);
 				
 
 				var options = {
-				  title: 'Color Code Per Year',
+				  title: 'Disease Count per year',
 				  is3D: true,
 				  hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
 				  vAxis: {minValue: 0},

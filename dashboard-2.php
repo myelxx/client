@@ -116,7 +116,7 @@ $result = $sth->fetchAll(PDO::FETCH_OBJ);
 			</script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
 			<input id="save-pdf" type="button" value="Save as PDF" />
-			<div id="chart_flood_advisory_per_area" style="width: 100%; height: 70%;"></div>
+			<div id="chart_disease_total_symptoms" style="width: 100%; height: 70%;"></div>
 			<?php
 				
 				$yearly = ' date_created > DATE_SUB(NOW(), INTERVAL 1 YEAR)';
@@ -180,7 +180,7 @@ $result = $sth->fetchAll(PDO::FETCH_OBJ);
 					// Some raw data (not necessarily accurate)
 					var data = google.visualization.arrayToDataTable(<?php echo $chartDataInJson; ?>);
 				 //save command
-				  var container = document.getElementById('chart_flood_advisory_per_area');
+				  var container = document.getElementById('chart_disease_total_symptoms');
 				  var chart = new google.visualization.LineChart(container);
 				  //var btnSave = document.getElementById('four-save-pdf');
 				  var btnSave = document.getElementById('save-pdf');
@@ -203,15 +203,14 @@ $result = $sth->fetchAll(PDO::FETCH_OBJ);
 					doc.setFontType("normal");
 					doc.text(20, 20, header1.value);
 					doc.setFontType("normal");
-					doc.addImage(chart.getImageURI(), -35, 25);	
+					doc.addImage(chart.getImageURI(), -25, 15);	
 					//doc.addImage(chart.getImageURI(), 15, 25);	
-					doc.setFontType("bold");	
+					doc.setFontType("bold");		
 					doc.setFontSize(12);
-					doc.text(120, 30, 'BAR GRAPH');	
 					doc.setFontType("normal");	
 					doc.text(250, 200, 'Date by: <?php echo date('M-d-Y'); ?>');
 					
-					doc.save('chart.pdf');
+					doc.save('chart-disease-symptoms-total.pdf');
 				}, false);
 
 				var options = {
@@ -230,7 +229,7 @@ $result = $sth->fetchAll(PDO::FETCH_OBJ);
 				  series: {4: {type: 'line'}}
 				};
 
-				var chart = new google.visualization.ComboChart(document.getElementById('chart_flood_advisory_per_area'));
+				var chart = new google.visualization.ComboChart(document.getElementById('chart_disease_total_symptoms'));
 				chart.draw(data, options);
 			  }
 			</script>
