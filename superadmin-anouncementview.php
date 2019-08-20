@@ -127,7 +127,7 @@ $result = mysqli_query($con,$sql);
               echo "<td>" . $row['a_who'] . "</td>";
               echo "<td>";?> <img src="<?php echo $row["image"];?>" height="100" width="100"> <?php echo"</td>";
               // echo "<td>" . $row['date_created'] . "</td>";
-              echo "<td> <a href=\"viewannounce.php?id=$row[ID]\">View</a> | <a href='#edit$id' data-toggle='modal'>Update</a>  |  <a href=\"delete.php?a_id=$row[ID]\" onClick=\" return confirm('Are you sure you want to delete?')\">Delete</a></td>";
+              echo "<td> <a href=\"superadmin-viewannounce.php?id=$row[ID]\">View</a> | <a href='#edit$id' data-toggle='modal'>Update</a>  |  <a href=\"delete.php?a_id=$row[ID]\" onClick=\" return confirm('Are you sure you want to delete?')\">Delete</a></td>";
               include('modal/announcement-button.php');
               // echo "<td> <a href=\"viewannounce.php?id=$row[ID]\">View</a> | <a href=\"delete.php?a_id=$row[ID]\" onClick=\" return confirm('Are you sure you want to delete?')\">Delete</a></td>";
               echo "</tr>";

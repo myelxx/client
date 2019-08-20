@@ -92,8 +92,8 @@
 						</div>
 						<div class="col-lg-10">
 							<label style="position:relative; top:7px;"> 
-								<?php if($erow['status'] == 1){ echo "Active"; } 
-									  if($erow['status'] == 0){ echo "Inactive"; } ?> 
+								<?php if($erow['status_credential'] == 1){ echo "Active"; } 
+									  if($erow['status_credential'] == 0){ echo "Inactive"; } ?> 
 							</label>
 						</div>
 					</div>
@@ -101,8 +101,8 @@
                     <div class="row">
 						<div class="col-lg-12">
 							<a href="modal/superadmin/status-update.php?id=<?=$erow['ID']?>" style="position:relative; top:7px;color:blue;">Do you want to 
-							<?php if($erow['status'] == 0){ echo "activate this account?"; } 
-								  if($erow['status'] == 1){ echo "deactivate this account?"; } ?>
+							<?php if($erow['status_credential'] == 0){ echo "activate this account?"; } 
+								  if($erow['status_credential'] == 1){ echo "deactivate this account?"; } ?>
 							</a>
 						</div>
 					</div>

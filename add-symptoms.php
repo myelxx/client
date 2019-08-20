@@ -3,6 +3,14 @@
 	
 	$name = $_POST['name'];
 	mysqli_query($conn,"INSERT INTO `symptoms` (`symptoms_id`, `symptoms_name`) VALUES (NULL, '$name')");
-	header('location:adminsymptoms.php');
+	
+	if(!empty( $_SESSION['admin'] )) { 
+		header('location:adminsymptoms.php');
+	} 
+	else { 
+		header('location:superadminsymptoms.php');
+	} 
+	
+	
 
 ?>

@@ -18,14 +18,14 @@ echo "Failed to connect to MySQL: " . mysqli_connect_error();
       $lastname = $_POST['lastname'];
       $birthdate = $_POST['birthdate'];
       $address = $_POST['address'];
-      $barangay = $_POST['Barangay'];
+      // $barangay = $_POST['Barangay'];
       $contact = $_POST['contact'];
-      $landline = $_POST['landline'];
+      // $landline = $_POST['landline'];
       $Gender   = $_POST['Gender'];
     
-      
 
-      $sql = "INSERT into admin VALUES ('','$username','$email','$pass','$firstname','$lastname','$birthdate','$address','$barangay','$contact','$landline','$Gender')";
+
+      $sql = "INSERT INTO `admin` (`ID`, `username`, `email_address`, `password`, `first_name`, `last_name`, `birth_date`, `address`, `contact_no`, `Gender`) VALUES (NULL, '$username', '$email', '$pass', '$firstname','$lastname','$birthdate','$address','$contact', '$Gender')";
 
   if ($con->query($sql) === TRUE) {
  $message ="Register Successfully Post!";
@@ -205,7 +205,7 @@ color: #fff;
 
         <div class="col-sm-6">
         <p>Username</p>
-        <input type="text"  pattern="^\D*$" name="username" class="form-control"placeholder="Enter username" required>
+        <input type="text" maxlength="20" name="username" class="form-control"placeholder="Enter username" required>
        </div>
 
         <div class="col-sm-6">
@@ -214,17 +214,17 @@ color: #fff;
        
         </div>
        <div class="col-sm-6">
-        <p>Firstname</p>
+        <p>First Name</p>
        <input type="text" pattern="^\D*$" name="firstname" class="form-control"placeholder="Enter Firstname" required>
        
        </div>
         <div class="col-sm-6">
-        <p>lastname</p>
+        <p>Last Name</p>
         <input type="text" pattern="^\D*$" name="lastname" class="form-control"placeholder="Enter lastname" required>
        
        </div>
        <div class="col-sm-6">
-        <p>birthdate</p>
+        <p>Birthdate</p>
         <input type="date" name="birthdate" class="form-control"  placeholder="Enter birthdate" required>
        </div>
        <div class="col-sm-6">
@@ -237,15 +237,15 @@ color: #fff;
        </div>
 
        <div class="col-sm-6">
-        <p>Cellphone number</p>
-        <input type="text" pattern="[0-9]{4}-[0-9]{4}-[0-9]{3}" name="contact" class="form-control"placeholder="Enter contact number XXXX-XXXX-XXX" required>
+        <p>Contact number</p>
+        <input type="text" pattern="\d*" maxlength="13" name="contact" class="form-control"placeholder="Enter contact number XXXX-XXXX-XXX" required>
        </div>
-       <div class="col-sm-6">
+       <!-- <div class="col-sm-6">
         <p>land-line number</p>
         <input type="text" pattern="[0-9]{3}-[0-9]{4}" name="landline" class="form-control"placeholder="Enter Land-line number XXX-XXXX" required>
         
-       </div>
-       <div class="col-sm-6">
+       </div> -->
+       <!-- <div class="col-sm-6">
         <p>barangay</p>
        <select name="Barangay" style="width: 100%;border-radius: 25px;" required>
           <option value=""></option>
@@ -277,15 +277,17 @@ color: #fff;
           <option value="VERGARA">   VERGARA</option>
           <option value="WACK-WACK-GREENHILLS EAST">WACK-WACK-GREENHILLS EAST</option>
       </select>
-       </div>
+       </div> -->
+
        <div class="col-sm-6">
        <p>Gender</p>
-       <select name="Gender"  style="width:16%; border-radius: 25px;" required>
-          <option value=""></option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-        </select>
-          </div>
+        <label class="radio-inline">
+          <input type="radio" name="Gender" checked value="male"> Male<br>
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="Gender" value="female"> Female<br>
+        </label>
+       </div>
         <br>
         <br>
        <input type="submit" name="btn_login" value="Sign up">

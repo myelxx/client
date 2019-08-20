@@ -5,9 +5,8 @@ $id = $_GET['id'];
 
 $sql=mysqli_query($conn,"select * from admin where ID='".$id."'");
 $erow=mysqli_fetch_array($sql);
-$status = $erow['status'];
+$status = $erow['status_credential'];
 $name = $erow['first_name'];
-                    
 if($status == 1){ $change_status = "activate"; } 
 if($status == 0){ $change_status = "deactivate"; }
 
@@ -19,12 +18,12 @@ if($status == 0){ $change_status = "deactivate"; }
 
 if($status == 1)
 {
- 	mysqli_query($conn,"update admin set status=0 where ID=$id");
+ 	mysqli_query($conn,"update admin set status_credential=0 where ID=$id");
  	header('location:../../superadmin.php');
  }
 
 if($status == 0){
- 	mysqli_query($conn,"update admin set status=1 where ID=$id");
+ 	mysqli_query($conn,"update admin set status_credential=1 where ID=$id");
  	header('location:../../superadmin.php');
  }
 ?>

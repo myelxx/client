@@ -54,22 +54,21 @@ while($row = mysqli_fetch_array($d_result)){
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 </head>
 <body id="page-top">
-  <nav class="navbar navbar-expand navbar-dark  static-top" style="background-color:#4385C7">
+<nav class="navbar navbar-expand navbar-dark  static-top" style="background-color:#008080">
 
-    <a class="navbar-brand mr-1" href="anouncementview.php">Admin - Panel</a>
+<a class="navbar-brand mr-1" href="superadmin.php">Super Admin - Panel</a>
 
-    <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-      <i class="fas fa-bars"></i>
-    </button>
+<button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+  <i class="fas fa-bars"></i>
+</button>
 
-    <!-- Navbar Search -->
-    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-      <div class="input-group">
-        <div class="input-group-append">
-          </button>
-        </div>
-
-    </form>
+<!-- Navbar Search -->
+<form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+  <div class="input-group">
+    <div class="input-group-append">
+      </button>
+    </div>
+  </div>
 
     <!-- Navbar -->
     <ul class="navbar-nav ml-auto ml-md-0">
@@ -121,7 +120,7 @@ body {
 
 .title {
   padding: 0.5%;
-  background-color: #35a7db;
+  background-color: #008080;
   color: white;
 }
 
@@ -144,7 +143,7 @@ body {
 
 .article_footer{
   height: 10px;
-  background-color: #35a7db;
+  background-color: #008080;
   color: white;
 }
 

@@ -176,11 +176,11 @@ $row4 = mysqli_fetch_array($result);
                 </tfoot>
                
                   <?php
-                  $result = mysqli_query($con,"SELECT * FROM admin");
+                  $result = mysqli_query($con,"SELECT * FROM admin WHERE status<>2");
                   while($row = mysqli_fetch_array($result))
                   {
                     $id = $row['ID'];
-                    if($row['status'] == 0 ) { 
+                    if($row['status_credential'] == 0 ) { 
                       $status="Inactive"; 
                     } else { 
                       $status = "Active";

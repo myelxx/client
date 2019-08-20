@@ -72,10 +72,10 @@ $result = mysqli_query($con,$sql);
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="viewtips.php">Health Tips</a>
+            <a style="color:#005fb3;">Health Tips</a>
           </li>
           <li class="breadcrumb-item">
-          <a href="viewhealthtips.php" >View Health Tips</a>
+          <a href="superadmin-viewhealthtips.php" >View Health Tips</a>
           </a>
         </ol>
     </div>

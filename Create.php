@@ -9,7 +9,7 @@ session_start();
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $result = mysqli_query($conn,"SELECT *  from admin where username = '$username'");
+    $result = mysqli_query($conn,"SELECT *  from admin where username = '$username' and status_credential=1");
     $row = mysqli_fetch_array($result);
      
     //this can be deleted
@@ -27,8 +27,8 @@ session_start();
     {
       $_SESSION['username'] = $username;
       $_SESSION['super_id'] = 0;
-      if($row['status'] == 3){
-        $_SESSION['role'] = "Superadmin";
+      if($row['status'] == 2){
+        $_SESSION['role'] = "Super Admin";
       }
       
       header('location:superadmin.php');

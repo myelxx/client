@@ -16,11 +16,11 @@
 	
 	mysqli_query($conn,"INSERT INTO `announcements` (`ID`, `a_what`, `a_when`, `a_where`, `a_who`, `image` , `date_created`) VALUES (NULL, '$what', '$when', '$where', '$who', '$image', CURRENT_TIMESTAMP);");
 	
-	if(!empty( $_SESSION['admin'] )) { echo "hi";
-		//header('location:anouncementview.php');
+	if(!empty( $_SESSION['admin'] )) { 
+		header('location:anouncementview.php');
 	} 
-	else { echo "he";
-		//header('location:superadmin-anouncementview.php');
+	else {
+		header('location:superadmin-anouncementview.php');
 	} 
 	
 

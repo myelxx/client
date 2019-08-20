@@ -2,7 +2,8 @@
 include('db/connection.php');
 include('db/super-auth.php');
 
-$sql = "SELECT * FROM patient WHERE status = 0";
+$sql = "SELECT * FROM patient INNER JOIN disease
+ON patient.disease_id = disease.disease_id WHERE patient.status = 2";
 
 // Date filter
 if(isset($_POST['but_search'])){
@@ -47,10 +48,6 @@ $query = mysqli_query($con, $sql);
 
  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
  
-  <!-- modal extensions -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
- 
 </head>
 
 <body id="page-top">
@@ -70,18 +67,17 @@ $query = mysqli_query($con, $sql);
    </div>
    </header>
  
-
        <div class="card mb-3">
             <ol class="breadcrumb">
-          <li class="breadcrumb-item" style="color:#005fb3;">
+          <li class="breadcrumb-item">
             Not validated Data
           </li>
           <li class="breadcrumb-item">
-          <a href="superadmincrowd-validated.php" >Validated</a>
+          <a href="admincrowd-validated.php">Validated</a>
           </a>
-          <!-- <li class="breadcrumb-item">
+          <li class="breadcrumb-item">
           <a href="admincrowd-report.php">Validated Data has a Communicable disease</a>
-          </a></li> -->
+          </a>
         </ol>
             
           </div>
@@ -102,9 +98,7 @@ $query = mysqli_query($con, $sql);
                   <tr>
                     <th>ID</th>
                     <th>Name</th>
-                    <th>Predicted Disease</th>
-                    <th>Possible Disease</th>
-                    <th>Symptoms</th>
+                    <th>Disease</th>
                     <th>Address</th>
                     <th>Date</th>
                     <th>Function</th>
@@ -115,9 +109,7 @@ $query = mysqli_query($con, $sql);
                   <tr>
                     <th>ID</th>
                     <th>Name</th>
-                    <th>Predicted Disease</th>
-                    <th>Possible Disease</th>
-                    <th>Symptoms</th>
+                    <th>Disease</th>
                     <th>Address</th>
                     <th>Date</th>
                     <th>Function</th>
@@ -131,13 +123,10 @@ $query = mysqli_query($con, $sql);
                 echo "<tr>";
                 echo "<td>" . $row['patient_id'] . "</td>";
                 echo "<td>" . $row['firstname'] . ' ' .  $row['lastname']  . "</td>";
-                echo "<td>" . $row['predicted_disease'] . "</td>";
-                echo "<td>" . $row['possible_disease'] . "</td>";
-                echo "<td>" . $row['symptoms'] . "</td>";
+                echo "<td>" . $row['disease_name'] . "</td>";
                 echo "<td>" . $row['address'] . "</td>";
                 echo "<td>" . date('M d, Y', strtotime($row['date_created'])) . "</td>";
-                echo "<td> <a href='#edit$row[patient_id]' data-toggle='modal'>Update</a>  |  <a href=\"delete.php?p_id=$row[patient_id]\" onClick=\" return confirm('Are you sure you want to delete?')\">Delete</a></td>";
-                include('modal/crowdpatient-button.php');
+                echo "<td> <a href=\"viewannounce.php?id=$row[patient_id]\">Update</a> | <a href=\"delete.php?id=$row[patient_id]\" onClick=\" return confirm('Are you sure you want to delete?')\">Delete</a></td>";
                 echo "</tr>";
                 }
               }

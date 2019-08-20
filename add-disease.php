@@ -30,6 +30,11 @@
 		mysqli_query($conn,"INSERT INTO `disease_symptoms` (`disease_id`, `symptoms_id`) VALUES ($last_id, $check)");
 	}
 
-	header('location:admindisease.php');
+	if(!empty( $_SESSION['admin'] )) { 
+		header('location:admindisease.php');
+	} 
+	else { 
+		header('location:superadmin-admindisease.php');
+	} 
 
 ?>
