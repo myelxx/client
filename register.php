@@ -211,8 +211,8 @@ color: #fff;
         <div class="col-sm-6">
         <p>Password</p>
         <input type="password" name="password" class="form-control" class="form-control"placeholder="Enter password" required>
-       
         </div>
+
        <div class="col-sm-6">
         <p>First Name</p>
        <input type="text" pattern="^\D*$" name="firstname" class="form-control"placeholder="Enter Firstname" required>
@@ -227,19 +227,33 @@ color: #fff;
         <p>Birthdate</p>
         <input type="date" name="birthdate" class="form-control"  placeholder="Enter birthdate" required>
        </div>
+
        <div class="col-sm-6">
-        <p>Address</p>
-        <input type="text" name="address" class="form-control"placeholder="Enter address" required>
+       <p>Gender</p>
+        <label class="radio-inline">
+          <input type="radio" name="Gender" checked value="male"> Male<br>
+        </label>
+
+        <label class="radio-inline">
+          <input type="radio" name="Gender" value="female"> Female<br>
+        </label>
        </div>
-        <div class="col-sm-6">
+       
+       <div class="col-sm-6">
+        <p>Contact number</p>
+        <input type="text" pattern="\d*" maxlength="13" name="contact" class="form-control"placeholder="Enter contact number XXXX-XXXX-XXX" required>
+       </div>
+
+       <div class="col-sm-6">
         <p>Email Address</p>
         <input type="text" name="email" class="form-control"placeholder="Enter Email address" required>
        </div>
 
        <div class="col-sm-6">
-        <p>Contact number</p>
-        <input type="text" pattern="\d*" maxlength="13" name="contact" class="form-control"placeholder="Enter contact number XXXX-XXXX-XXX" required>
+        <p>Address</p>
+        <input type="text" name="address" class="form-control"placeholder="Enter address" required>
        </div>
+
        <!-- <div class="col-sm-6">
         <p>land-line number</p>
         <input type="text" pattern="[0-9]{3}-[0-9]{4}" name="landline" class="form-control"placeholder="Enter Land-line number XXX-XXXX" required>
@@ -279,15 +293,7 @@ color: #fff;
       </select>
        </div> -->
 
-       <div class="col-sm-6">
-       <p>Gender</p>
-        <label class="radio-inline">
-          <input type="radio" name="Gender" checked value="male"> Male<br>
-        </label>
-        <label class="radio-inline">
-          <input type="radio" name="Gender" value="female"> Female<br>
-        </label>
-       </div>
+      
         <br>
         <br>
        <input type="submit" name="btn_login" value="Sign up">
