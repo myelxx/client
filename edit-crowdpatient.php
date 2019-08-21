@@ -21,7 +21,12 @@
 		mysqli_query($conn,"update patient set status=$status  where patient_id = $id");
 	}
 
-
-	header('location:admincrowd.php');
+	session_start();
+	if(!empty( $_SESSION['admin'] )) { 
+		header('location:admincrowd.php');
+	} 
+	else { 
+		header('location:superadmincrowd.php');
+	} 
 
 ?>

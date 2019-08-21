@@ -70,7 +70,7 @@ session_start();
 <style>
 .loginbox{
   width: 50%;
-  height: 60%;
+  height: 65%;
   background: rgba(0,0,0,0.4);
   color: #fff;
   top: 50%;
@@ -234,7 +234,8 @@ color: #fff;
        <input type="Password" name="password" placeholder="Enter Password" required>
        <input type="submit" name="btn_login" value="Login">
        <div class="sign">
-       Don't have an account? <a href="register.php">Click here</a>
+       Don't have an account? <a href="register.php" style="font-size: 16px;color:yellow">Click here</a><br>
+       Forgot Password? <a href="forgetPassword.php" style="font-size: 16px;color:yellow">Click here</a>
      </div>
      <br>
      <br>

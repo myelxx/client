@@ -1,6 +1,6 @@
 <?php
 include('db/connection.php');
-
+session_start();
 
 $ID = $_GET['id'];
 //separate ids differently

@@ -14,8 +14,10 @@
 		//echo "success";
 	}
 	
+
 	mysqli_query($conn,"INSERT INTO `announcements` (`ID`, `a_what`, `a_when`, `a_where`, `a_who`, `image` , `date_created`) VALUES (NULL, '$what', '$when', '$where', '$who', '$image', CURRENT_TIMESTAMP);");
 	
+	session_start();
 	if(!empty( $_SESSION['admin'] )) { 
 		header('location:anouncementview.php');
 	} 

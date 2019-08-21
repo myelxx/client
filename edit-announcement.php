@@ -21,6 +21,14 @@
 	$date = date('Y-m-d');
 
 	mysqli_query($conn,"update announcement_details set a_what='$what', a_when='$when', a_where='$where', a_who='$who', image='$image', date_created=CURRENT_TIMESTAMP where ID=$ID");
-	header('location:anouncementview.php');
+	
+
+	session_start();
+	if(!empty( $_SESSION['admin'] )) { 
+		header('location:anouncementview.php');
+	} 
+	else { 
+		header('location:superadmin-anouncementview.php');
+	} 
 
 ?>

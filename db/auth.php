@@ -1,6 +1,6 @@
 <?php
 session_start();
 if(!isset($_SESSION["id"])){
-header("Location: create.php");
+header("Location: Create.php");
 exit(); }
 ?>

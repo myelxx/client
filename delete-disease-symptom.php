@@ -2,7 +2,7 @@
 
 <?php
 include('db/connection.php');
-
+session_start();
 //separate ids differently
 $disease_ID = $_GET['d_id'];
 if(isset($disease_ID)){

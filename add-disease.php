@@ -1,6 +1,5 @@
 <?php
 	include('db/connection.php');
-	
 	$name = $_POST['name'];
 
 	//this function loops the checkbox selected then store in a string variable th
@@ -30,11 +29,12 @@
 		mysqli_query($conn,"INSERT INTO `disease_symptoms` (`disease_id`, `symptoms_id`) VALUES ($last_id, $check)");
 	}
 
+	session_start();
 	if(!empty( $_SESSION['admin'] )) { 
 		header('location:admindisease.php');
 	} 
 	else { 
-		header('location:superadmin-admindisease.php');
+		header('location:superadmindisease.php');
 	} 
 
 ?>

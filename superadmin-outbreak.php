@@ -66,7 +66,7 @@ include('db/super-auth.php');
                   <tr>
                     <th>ID</th>
                     <th>Disease Name</th>
-                    <th>Symptoms</th>
+                    <th>Total Cases</th>
                     <th>Function</th>
                   </tr>
                 </thead>
@@ -75,7 +75,7 @@ include('db/super-auth.php');
                   <tr>
                     <th>ID</th>
                     <th>Disease Name</th>
-                    <th>Symptoms</th>
+                    <th>Total Cases</th>
                     <th>Function</th>
                   </tr>
                 </tfoot>

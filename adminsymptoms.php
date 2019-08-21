@@ -56,17 +56,21 @@ include('db/auth.php');
   </div>
    </div>
 
-   <div class="card mb-3">
-            <ol class="breadcrumb">
+    <ol class="breadcrumb">
           <li class="breadcrumb-item">
           <a href="admindisease.php">Disease</a>
           </li>
           <li class="breadcrumb-item">
             Symptoms
           </li>
-        </ol>
-    </div>
+    </ol>
+  <div class="card mb-3">
+    <?php 
+    if($_SESSION['message']){ }
+    ?>
+  </div>
 
+  
 <!--table -->
 <div class="card-body">
             <div class="panel-body">

@@ -75,14 +75,14 @@ $query = mysqli_query($con, $sql);
        <div class="card mb-3">
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            <a href="admincrowd.php">Not validated Data</a>
+            <a href="superadmincrowd.php">Not validated Data</a>
             </a> 
           </li>
           <li class="breadcrumb-item"style="color:#005fb3;">
           Validated
           </li>
           <!-- <li class="breadcrumb-item">
-          <a href="admincrowd-report.php">Validated Data has a Communicable disease</a>
+          <a href="superadmincrowd-report.php">Validated Data has a Communicable disease</a>
           </a></li> -->
         </ol>
             

@@ -15,6 +15,7 @@
 
 	mysqli_query($conn,"INSERT INTO `health_tips` (`ID`, `Title`, `health_tips`, `source`, `images`) VALUES (NULL, '$title', '$tips', '$source', '$image');");
 	
+	session_start();
 	if(!empty( $_SESSION['admin'] )) { 
 		header('location:viewtips.php');
 	} 

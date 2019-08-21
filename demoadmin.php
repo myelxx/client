@@ -141,7 +141,7 @@ $row4 = mysqli_fetch_array($result);
               <div class="card-body">
                 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
                 
-                <form name="filter" method="POST" action="dashboard.php#firstDiv">
+                <form name="filter" method="POST" action="demoadmin.php#firstDiv">
                     <div class="d-inline-block">
                     <p>Filter the dashboard:</p>
                     </div>
@@ -335,7 +335,7 @@ $row4 = mysqli_fetch_array($result);
                 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
                 
-                <form name="filter" method="POST" action="dashboard.php">
+                <form name="filter" method="POST" action="demoadmin.php">
                     <div class="d-inline-block">
                     <p>Filter the dashboard:</p>
                     </div>
@@ -462,7 +462,7 @@ $row4 = mysqli_fetch_array($result);
 
           <!-- start -->
           <div class="card mb-3">
-            <div class="card-header "style="background-color:#4385C7">
+            <div class="card-header "style="background-color:#4385C7; color: white;">
               <i class="fas fa-table"></i>  Bar Graph for Disease and Total Symptoms
             </div>
             <div style="width: 100%; height: 400px;">
@@ -473,7 +473,7 @@ $row4 = mysqli_fetch_array($result);
                 <div class="card-body">
                   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
                   
-                  <form name="filter" method="POST" action="dashboard-2.php">
+                  <form name="filter" method="POST" action="demoadmin.php">
                       <div class="d-inline-block">
                       <p>Filter the dashboard:</p>
                       </div>
@@ -587,6 +587,7 @@ $row4 = mysqli_fetch_array($result);
                     $data = array( 
                       array('Symptoms', 'Count')
                     );
+                    $display_disease="Mallaria";
                     $disease_sql = "SELECT s.symptoms_name, count(s.symptoms_name) as count FROM disease_symptoms ds INNER JOIN disease d ON d.disease_id = ds.disease_id INNER JOIN symptoms s ON s.symptoms_id = ds.symptoms_id INNER JOIN patient p ON p.disease_id = ds.disease_id WHERE d.disease_name = '".$display_disease."' AND ".$filterDate."GROUP BY s.symptoms_name";
                     $disease_result = $conn->query($disease_sql);
                       if ($disease_result->num_rows > 0) {

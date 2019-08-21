@@ -4,13 +4,13 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Update Disease</h4>
+                    <h4 class="modal-title" id="myModalLabel">Update Disease </h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
 				<?php
-					$edit=mysqli_query($conn,"select * from disease where disease_id='".$erow['disease_id']."'");
-					$erow=mysqli_fetch_array($edit);
+					$edit=mysqli_query($conn,"select * from disease where disease_id='".$row['disease_id']."'");
+                    $erow=mysqli_fetch_array($edit);
 				?>
 				<div class="container-fluid">
 				<form method="POST" action="edit-disease-symptoms.php" enctype="multipart/form-data">

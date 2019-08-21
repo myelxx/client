@@ -1,15 +1,8 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "health";
+include('db/connection.php');
+$errors = array(); 
+$message_success = "";
 
-$con=mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-if (mysqli_connect_errno())
-{
-echo "Failed to connect to MySQL: " . mysqli_connect_error();
-}
    if (isset($_POST['username'])){
       $username = $_POST['username'];
       $email   = $_POST['email'];
@@ -22,18 +15,50 @@ echo "Failed to connect to MySQL: " . mysqli_connect_error();
       $contact = $_POST['contact'];
       // $landline = $_POST['landline'];
       $Gender   = $_POST['Gender'];
-    
+
+      // first check the database to make sure 
+		  // a user does not already exist with the same username and/or email
+		  $user_check_query = "SELECT * FROM admin WHERE username='$username' OR email_address='$email' LIMIT 1";
+		  $result = mysqli_query($con, $user_check_query);
+		  $user = mysqli_fetch_assoc($result);
+		  
+		  if ($user) { // if user exists
+			array_push($errors, "Unable to register.");
+			if ($user['username'] === $username) {
+			  array_push($errors, "Username already exists");
+			}
+
+			if ($user['email_address'] === $email) {
+			  array_push($errors, "email already exists");
+			}
+
+      } else {
+              //for activation code
+              function generateRandomString($length = 15) {
+                return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
+                }
+                $activation_code = generateRandomString();
+          
+                //insert in email verification
+                $email_sql = "INSERT INTO email_verification (email,activation_code)  VALUES ('$email','$activation_code')";
+                if (mysqli_query($con, $email_sql)) {
+                    if(!empty($email)){
+                      require_once ("email-verify-mail.php");
+                    } 
+                }
+
+              $sql = "INSERT INTO `admin` (`ID`, `username`, `email_address`, `password`, `first_name`, `last_name`, `birth_date`, `address`, `contact_no`, `Gender`) VALUES (NULL, '$username', '$email', '$pass', '$firstname','$lastname','$birthdate','$address','$contact', '$Gender')";
+              if ($con->query($sql) === TRUE) {
+                $message_success ="Registered Successfully!";
+                // echo "<script type='text/javascript'>alert('$message');</script>";
+                //header("Refresh:5; url=Create.php");
+              } else {
+                  echo "Error: " . $sql . "<br>" . $con->error;
+              }
+      }
+      
 
 
-      $sql = "INSERT INTO `admin` (`ID`, `username`, `email_address`, `password`, `first_name`, `last_name`, `birth_date`, `address`, `contact_no`, `Gender`) VALUES (NULL, '$username', '$email', '$pass', '$firstname','$lastname','$birthdate','$address','$contact', '$Gender')";
-
-  if ($con->query($sql) === TRUE) {
- $message ="Register Successfully Post!";
- echo "<script type='text/javascript'>alert('$message');</script>";
-  header("Refresh:0; url=Create.php");
-} else {
-    echo "Error: " . $sql . "<br>" . $con->error;
-}
 }
 ?>
 
@@ -199,10 +224,19 @@ color: #fff;
     <div class="loginbox">
     <img src="pic2.png" class="avatar">
     <h1>Admin Registration</h1>
+     <!-- Breadcrumbs-->
+    
+     <?php if(!empty($errors)){ include('errors.php'); } ?>
+
+    <?php if(!empty($message_success)){  ?>
+    <ol class="breadcrumb" style="color:white;background-color:#277546;border-radius:12px;">
+      <?php echo $message_success;  ?>
+    </ol>
+    <?php } ?>
+    
        <div class="form-group">
        <form method="POST" action="">
         <div class="row">
-
         <div class="col-sm-6">
         <p>Username</p>
         <input type="text" maxlength="20" name="username" class="form-control"placeholder="Enter username" required>

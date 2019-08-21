@@ -136,7 +136,7 @@ $row4 = mysqli_fetch_array($result);
 
         <!-- DataTables Example -->
         <div class="card mb-3">
-          <div class="card-header"style="background-color:#008080">
+          <div class="card-header"style="background-color:#008080; color: white;">
             <i class="fas fa-table "></i>
             Registered Admin Users</div>
           <div class="card-body">
@@ -148,7 +148,7 @@ $row4 = mysqli_fetch_array($result);
                   <tr>
                   <th>ID</th>
                     <th>Username</th>
-                     <th>Email Address</th>
+                    <th>Email Address</th>
                     <th>Name</th>
                     <th>Birthdate</th>
                     <th>Address</th>
@@ -189,8 +189,8 @@ $row4 = mysqli_fetch_array($result);
                     echo "<tr>";
                     echo "<td>" . $row['ID'] . "</td>";
                     echo "<td>" . $row['username'] . "</td>";
-                    echo "<td>" . $row['first_name'] . "</td>";
-                    echo "<td>" . $row['last_name'] . "</td>";
+                    echo "<td>" .  $row['email_address']  . "</td>";
+                    echo "<td>" . $row['first_name'] . " " . $row['last_name'] . "</td>";
                     echo "<td>" . $row['birth_date'] . "</td>";
                     echo "<td>" . $row['address'] . "</td>";
                     echo "<td>" . $row['contact_no'] . "</td>";

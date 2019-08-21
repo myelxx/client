@@ -15,7 +15,15 @@
 			}
 		}
 		mysqli_query($conn,"update symptoms set symptoms_name='$symptoms_name'  where symptoms_id = $id");
-		header('location:adminsymptoms.php');
+		
+		session_start();
+		if(!empty( $_SESSION['admin'] )) { 
+			header('location:adminsymptoms.php');
+		} 
+		else { 
+			header('location:superadminsymptoms.php');
+		} 
+		
 	}
 
 	if(isset($_POST['btnSubmitDisease']))
@@ -48,7 +56,15 @@
 			mysqli_query($conn,"INSERT INTO `disease_symptoms` (`disease_id`, `symptoms_id`) VALUES ($id, $check)");
 		}
 
-		header('location:admindisease.php');
+		//header('location:admindisease.php');
+
+		session_start();
+		if(!empty( $_SESSION['admin'] )) { 
+			header('location:admindisease.php');
+		} 
+		else { 
+			header('location:superadmindisease.php');
+		} 
 	}
 
 ?>
