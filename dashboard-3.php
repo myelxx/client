@@ -35,7 +35,7 @@ $result = $sth->fetchAll(PDO::FETCH_OBJ);
 <div class="app-content"> 
 
 <!-- Example Pie Chart Card-->
-<div class="card mb-3" id="sentAdvisoryDiv" >
+<div class="card mb-3" id="fourDiv" >
 	<div class="card-header">
 		<i class="fa fa-bar-chart"></i> Bar Graph for Disease and Total Symptoms</div>
 		<div class="card-body">
@@ -103,8 +103,8 @@ $result = $sth->fetchAll(PDO::FETCH_OBJ);
 					});
 			</script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
-			<input id="save-pdf" type="button" value="Save as PDF" />
-			<div id="chart_disease_total_symptoms" style="width: 100%; height: 70%;"></div>
+			<input hidden id="save-pdf" type="button" value="Save as PDF" />
+			<div id="chart_crowdsource" style="width: 100%; height: 70%;"></div>
 			<?php
 				
 				$yearly = ' date_created > DATE_SUB(NOW(), INTERVAL 1 YEAR)';
@@ -175,7 +175,7 @@ $result = $sth->fetchAll(PDO::FETCH_OBJ);
 					// Some raw data (not necessarily accurate)
 					var data = google.visualization.arrayToDataTable(<?php echo $chartDataInJson; ?>);
 				 //save command
-				  var container = document.getElementById('chart_disease_total_symptoms');
+				  var container = document.getElementById('chart_crowdsource');
 				  var chart = new google.visualization.LineChart(container);
 				  //var btnSave = document.getElementById('four-save-pdf');
 				  var btnSave = document.getElementById('save-pdf');
@@ -224,7 +224,7 @@ $result = $sth->fetchAll(PDO::FETCH_OBJ);
 				  series: {4: {type: 'line'}}
 				};
 
-				var chart = new google.visualization.ComboChart(document.getElementById('chart_disease_total_symptoms'));
+				var chart = new google.visualization.ComboChart(document.getElementById('chart_crowdsource'));
 				chart.draw(data, options);
 			  }
 			</script>
