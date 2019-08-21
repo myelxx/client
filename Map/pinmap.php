@@ -206,6 +206,8 @@ echo '<input class=hidden id=Date2 value=' . $endDate . '/>';
 <input type='date' placeholder="Start Date" class='dateFilter hidden' name='fromDate' onchange="getValue()" id="fDate" value='<?php if(isset($fromDate)){echo $fromDate; }?>' > 
 <input type='date' placeholder="End Date" class='dateFilter hidden' name='endDate' onchange="getValue()" id="eDate" value='<?php if(isset($endDate)) echo $endDate; ?>' >
 <select style="width:40%" class="btn btn-primary dropdown-toggle" name="address">
+<option <?php if ($get_address == $row["address"] ) echo 'selected' ; ?> value="">Barangay </option>
+
 <?php
 include 'db/DbConnect.php';
 $sql = "SELECT distinct(address) FROM patient";
@@ -237,10 +239,16 @@ $conn->close();
 			$coll = $edu->getAddressBlankLatLng();
 			$coll = json_encode($coll, true);
 			echo '<div id="data">' . $coll . '</div>';
-
-			$allData = $edu->getAllAddress($get_address,$fromDate,$endDate);
-			$allData = json_encode($allData, true);
-			echo '<div id="allData">' . $allData . '</div>';			
+			
+			if($get_address==""){
+				$allData = $edu->getAllMarker($fromDate,$endDate);
+				$allData = json_encode($allData, true);
+				echo '<div id="allData">' . $allData . '</div>';	
+			} else {
+				$allData = $edu->getAllAddress($get_address,$fromDate,$endDate);
+				$allData = json_encode($allData, true);
+				echo '<div id="allData">' . $allData . '</div>';	
+			}		
 		 ?>
 		<div id="map"></div>
 </body>

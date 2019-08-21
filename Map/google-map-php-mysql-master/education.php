@@ -46,11 +46,11 @@
 			$sql = "SELECT address, predicted_disease as disease_name , latitude as lat ,longitude as lng, COUNT(predicted_disease) as total FROM patient WHERE status=1";
 		  if(!empty($fromDate) && !empty($endDate)){ $sql .= " AND date_created  between '".$fromDate."' and '".$endDate."' ";}
 		  $sql .= " GROUP BY address, predicted_disease HAVING COUNT(predicted_disease) > 0";
+	
 			$stmt = $this->conn->prepare($sql);
 			$stmt->execute();
 			return $stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
-
 
 		public function getAllAddress($get_address,$fromDate,$endDate) {
 			$sql = "SELECT address, predicted_disease as disease_name , latitude as lat ,longitude as lng, COUNT(predicted_disease) as total FROM patient WHERE status=1 AND address = '$get_address'";

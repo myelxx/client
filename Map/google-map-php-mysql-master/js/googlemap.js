@@ -14,42 +14,22 @@ function loadMap() {
     geocoder = new google.maps.Geocoder();  
     codeAddress(cdata);
 
-	var allData = JSON.parse(document.getElementById('allData').innerHTML);
+    var allData = JSON.parse(document.getElementById('allData').innerHTML);
     showAllColleges(allData)
 }
 
 function showAllColleges(allData) {
-    var infoWind = new google.maps.InfoWindow;
+	var infoWind = new google.maps.InfoWindow;
 	Array.prototype.forEach.call(allData, function(data){
 		var content = document.createElement('div');
 		var strong = document.createElement('strong');
 		
-		strong.textContent = data.address;
+		strong.textContent = data.name;
 		content.appendChild(strong);
 
-		var content = document.createElement('div');
-		var address = document.createElement('p');
-		var text = document.createElement('p');
-		var output = [];
-		address.textContent = "Street: " + data.address;
-		text.textContent = "List of disease";
-		content.appendChild(address);
-		content.appendChild(text);
-
-		for(var results in allData)
-		{
-			console.log(allData[results].disease_name);
-		 output.push("Type of disease: (" + allData[results].disease_name + ") Total cases: (" + allData[results].total + ")");
-		}
-        //console.log(data.disease_name);
-	//	console.log(data);
-		console.log(output);
-	   for(i=0; i<output.length;i++)
-	   {
-		var disease = document.createElement('p');
-		disease.textContent = output[i];
-		content.appendChild(disease);
-	   }
+		var img = document.createElement('img');
+		img.style.width = '100px';
+		content.appendChild(img);
 
 		var marker = new google.maps.Marker({
 	      position: new google.maps.LatLng(data.lat, data.lng),
@@ -60,15 +40,14 @@ function showAllColleges(allData) {
 	    	infoWind.setContent(content);
 	    	infoWind.open(map, marker);
 		})
-
-
+		
+		
 	})
 }
 
-
 function codeAddress(cdata) {
    Array.prototype.forEach.call(cdata, function(data){
-    	var address =  data.address;
+    	var address = data.name + ' ' + data.address;
 	    geocoder.geocode( { 'address': address}, function(results, status) {
 	      if (status == 'OK') {
 	        map.setCenter(results[0].geometry.location);
