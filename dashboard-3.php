@@ -108,7 +108,6 @@ $result = $sth->fetchAll(PDO::FETCH_OBJ);
 			<?php
 				
 				$yearly = ' date_created > DATE_SUB(NOW(), INTERVAL 1 YEAR)';
-				$display_disease = "mallaria";
 				if(isset($_POST['btnFilterDate'])){
 					if(isset($_POST['filter_date'])){
 						$month = $_POST['month'];
@@ -218,7 +217,7 @@ $result = $sth->fetchAll(PDO::FETCH_OBJ);
 					} else {echo "Yearly - Year " . $current_year;}?>',
 				  is3D:true,
 				  vAxis: {title: 'Total number '},
-				  hAxis: {title: 'CrowdSourcing <?php echo $display_disease; ?>'
+				  hAxis: {title: 'CrowdSourcing'
 				  },
 				  colors: ['#800000','#e6194b','#3cb44b'],
 				  seriesType: 'bars',
