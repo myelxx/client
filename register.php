@@ -244,7 +244,7 @@ color: #fff;
 
         <div class="col-sm-6">
         <p>Password</p>
-        <input type="password" name="password" class="form-control" class="form-control"placeholder="Enter password" required>
+        <input type="password" name="password" class="form-control" class="form-control" placeholder="Enter password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or 10 characters" required>
         </div>
 
        <div class="col-sm-6">

@@ -3,29 +3,27 @@
    $endDate = "";
 
    
-	include 'map/connection.php';
+	include 'connection.php';
 ?>
  <?php if(isset($_POST['submit']))
  {
+  $get_address =  $_POST["address"]; 
+  $fromDate = $_POST['fromDate'];
+ $endDate = $_POST['endDate'];
+echo '<input class=hidden id=Date1 value=' . $fromDate . '/>';
+echo '<input class=hidden id=Date2 value=' . $endDate . '/>';
 
-	$get_address =  $_POST["address"]; 
-	$fromDate = $_POST['fromDate'];
-	$endDate = $_POST['endDate'];
-
-	echo '<input class=hidden id=Date1 value=' . $fromDate . '/>';
-	echo '<input class=hidden id=Date2 value=' . $endDate . '/>';
-
-	echo '<script> 
-	$(document).ready(function(){
-		$("#Date1").on("input", function(){
-			$("#fDate").val($(this).val());
-		});
-		
-		$("#Date2").on("input", function(){
-			$("#eDate").val($(this).val());
-		});
-	});
-	</script>';
+ echo '<script> 
+ $(document).ready(function(){
+	 $("#Date1").on("input", function(){
+		 $("#fDate").val($(this).val());
+	 });
+	 
+	 $("#Date2").on("input", function(){
+		 $("#eDate").val($(this).val());
+	 });
+ });
+ </script>';
  } ?>
 <!DOCTYPE html>
 <html>
@@ -33,13 +31,14 @@
 	<title> </title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="style.css">
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript" src="map/js/googlemap.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script type="text/javascript" src="js/googlemap.js"></script>
 	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 	<script>
 		$(document).ready(function(){
@@ -70,8 +69,8 @@
 		}
 
 		.filterMap{
-			bottom: 12%;
-			width: 90%;
+			bottom: 0; 
+			width: 100%;
 			padding: 1%;
 			position: absolute;
 			z-index: 5;
@@ -158,19 +157,17 @@
 
 <div id="floating-panel">
 		<h3 class="title">Disease</h3>
-		<form action="heatmap2.php" method="post">
+		<form action="heatmap.php" method="post">
 		<?php
 			//select distinct disease and its count
-			$sqlDisease = "SELECT predicted_disease as disease, count(predicted_disease) as count FROM patient ";
+			$sqlDisease = "SELECT predicted_disease as disease, count(predicted_disease) as count FROM patient";
 			// Date filter
 			if(isset($_POST['but_search'])){
 				$fromDate = $_POST['fromDate'];
 				$endDate = $_POST['endDate'];
-				
 
 				if(!empty($fromDate) && !empty($endDate)){ $sqlDisease .= " WHERE date_created  between '".$fromDate."' and '".$endDate."' "; }
-			}
-			// Sort
+			} 
 			$sqlDisease .= " GROUP BY predicted_disease";
 			$query = mysqli_query($con, $sqlDisease);
 			$result = $con->query($sqlDisease);
@@ -194,7 +191,7 @@
 <div class="filterMap">
 <div class="col-xs-12">
   <div class="col-xs-6">
-  <form method='post' action='heatmap2.php' style="margin-left:15px;" autocomplete="off">
+  <form method='post' action='heatmap.php' style="margin-left:15px;" autocomplete="off">
 		<label>Filter Date: &nbsp;</label>
 		<br>
 		<input type='date' style="width:40%" placeholder="Start Date" class='dateFilter' name='fromDate' onchange="getValue()" id="fromDate" value='<?php if(isset($fromDate)){echo $fromDate; }?>' required> 				
@@ -204,22 +201,32 @@
 	</form>
   </div>
   <div class="col-xs-6" id="pinpoint">
-  			&nbsp; &nbsp;<label>Filter Pinpoint: &nbsp;</label><br>
-			<form action="pinmap2.php" method="post">
-			<input type='date' placeholder="Start Date" class='dateFilter hidden' name='fromDate' onchange="getValue()" id="fDate" value='<?php if(isset($fromDate)){echo $fromDate; }?>' > 
-			<input type='date' placeholder="End Date" class='dateFilter hidden' name='endDate' onchange="getValue()" id="eDate" value='<?php if(isset($endDate)) echo $endDate; ?>' >
-			&nbsp; &nbsp;<select style="width:40%" class="btn btn-primary dropdown-toggle" name="address">
-			<option value="Barangay Bagong Silang"> Barangay Bagong Silang </option>
-			<?php
-			$sql = "SELECT distinct(address) FROM patient";
-			$result = $con->query($sql);
-			if ($result->num_rows > 0) {
-				// output data of each row
-				while($row = $result->fetch_assoc()) {
-			?>
-			<option <?php if ($get_address == $row["address"] ) echo 'selected' ; ?> value="<?php echo $row["address"];?>"><?php echo $row["address"];?></option>
-			<?php }}?>
-			</select>
+  <label>Filter Pinpoint: &nbsp;</label><br>
+  <form action="pinmap2.php" method="post">
+<input type='date' placeholder="Start Date" class='dateFilter hidden' name='fromDate' onchange="getValue()" id="fDate" value='<?php if(isset($fromDate)){echo $fromDate; }?>' > 
+<input type='date' placeholder="End Date" class='dateFilter hidden' name='endDate' onchange="getValue()" id="eDate" value='<?php if(isset($endDate)) echo $endDate; ?>' >
+<select style="width:40%" class="btn btn-primary dropdown-toggle" name="address">
+<option <?php if ($get_address == $row["address"] ) echo 'selected' ; ?> value="">Barangay </option>
+
+<?php
+include 'db/DbConnect.php';
+$sql = "SELECT distinct(address) FROM patient";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+
+?>
+
+  <option <?php if ($get_address == $row["address"] ) echo 'selected' ; ?> value="<?php echo $row["address"];?>"><?php echo $row["address"];?></option>
+<?php }
+}
+else {
+    echo "0 results";
+}
+$conn->close();
+  ?>
+</select>
  <input type="submit"  class="btn btn-primary" name="submit">
 </form>
 
@@ -227,28 +234,21 @@
 </div>
 </div>
 		<?php 
-	
-			require 'map/map.php';
+			require 'map.php';
 			$edu = new map;
-			
 			$coll = $edu->getAddressBlankLatLng();
 			$coll = json_encode($coll, true);
 			echo '<div id="data">' . $coll . '</div>';
-
 			
-			if($_POST['address'] == "Barangay Bagong Silang")
-			{
-				$allData = $edu->getAllStreetOfBarangay($fromDate,$endDate);
+			if($get_address==""){
+				$allData = $edu->getAllMarker($fromDate,$endDate);
 				$allData = json_encode($allData, true);
 				echo '<div id="allData">' . $allData . '</div>';	
-			}
-			else 
-			{
+			} else {
 				$allData = $edu->getAllAddress($get_address,$fromDate,$endDate);
 				$allData = json_encode($allData, true);
 				echo '<div id="allData">' . $allData . '</div>';	
-			}
-					
+			}		
 		 ?>
 		<div id="map"></div>
 </body>

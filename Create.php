@@ -1,65 +1,61 @@
 
 <?php
 include('db/connection.php');
+$message_success="";
+$message_error="";
 
 session_start();
 
-   if (isset($_POST['username']))
+   if (isset($_POST['username']) && isset($_POST['password']) )
    {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
     $result = mysqli_query($conn,"SELECT *  from admin where username = '$username' and status_credential=1");
-    $row = mysqli_fetch_array($result);
      
-    //this can be deleted
-    if($username == "superadmin" && $password == "superadmin")
+    if( mysqli_num_rows($result) > 0 )
     {
-      $_SESSION['username']= $username;
-      $_SESSION['super_id']= 0;
-      $_SESSION['role'] = "Superadmin";
-      header('location:superadmin.php');
-      exit;
-    }
-
-    //created status in admin table -> 3 as superadmin; 
-    if($row['username'] == $username && $row['password'] == $password && $row['status'] == 2 )
-    {
-      $_SESSION['username'] = $username;
-      $_SESSION['super_id'] = 0;
-      if($row['status'] == 2){
-        $_SESSION['role'] = "Super Admin";
+      $row = mysqli_fetch_array($result);
+      //created status in admin table -> 3 as superadmin; 
+      if($row['username'] == $username && $row['password'] == $password && $row['status'] == 2 )
+      {
+        $_SESSION['username'] = $username;
+        $_SESSION['super_id'] = 0;
+        if($row['status'] == 2){
+          $_SESSION['role'] = "Super Admin";
+        }
+        
+        $message_success ="Successfully login!";
+        header("Refresh:3; url=superadmin.php");
+        //header('location:superadmin.php');
       }
-      
-      header('location:superadmin.php');
-      exit;
-    }
 
-    if($row['username'] == $username && $row['password'] == $password && $row['status'] == 1 )
-    {
-      //added session for id, for authentication
-      $_SESSION['id']= $row['ID'];
-      $_SESSION['sid'] = 1;
-      $_SESSION['admin']= $username;
-      $admin = $_SESSION['admin'];
-      $location = $_SESSION['location'];
+      if($row['username'] == $username && $row['password'] == $password && $row['status'] == 1 )
+      {
+        //added session for id, for authentication
+        $_SESSION['id']= $row['ID'];
+        $_SESSION['sid'] = 1;
+        $_SESSION['admin']= $username;
+        $admin = $_SESSION['admin'];
 
+        
+        if($row['status'] == 1){
+          $_SESSION['role'] = "Admin";
+        }
       
-      if($row['status'] == 1){
-        $_SESSION['role'] = "Admin";
+
+        $result2 =mysqli_query($conn,"SELECT *  from admin where admin = '$admin'");
+        
+        $message_success ="Successfully login!";
+        header("Refresh:3; url=admin.index.php");
+        //header('location: admin.index.php');
       }
-    
-
-      $result2 =mysqli_query($conn,"SELECT *  from admin where admin = '$admin' AND location = '$location'");
- 
-      header('location: admin.index.php');
-      exit;
-}
-       else
+   }
+   else
     {
-          $message ="Invalid Credentials. Please try again";
-          echo "<script type='text/javascript'>alert('$message');</script>";
-          header("Refresh:0; url=Create.php");
+          $message_error ="Invalid Credentials. Please try again";
+          //$message ="Invalid Credentials. Please try again";
+          //echo "<script type='text/javascript'>alert('$message');</script>";
     }
 
 
@@ -227,6 +223,16 @@ color: #fff;
     <div class="loginbox">
     <img src="pic2.png" class="avatar">
     <h3>Admin Login</h3>
+      <?php if(!empty($message_success)){  ?>
+      <ol class="breadcrumb" style="color:white;background-color:#277546;border-radius:12px;">
+        <?php echo $message_success;  ?>
+      </ol>
+      <?php } ?>
+      <?php if(!empty($message_error)){  ?>
+      <ol class="breadcrumb" style="color:white;background-color:#db2a35;border-radius:12px;">
+        <?php echo $message_error;  ?>
+      </ol>
+      <?php } ?>
        <p>Username</p>
        <form method="POST"  action="">
        <input type="text"  name="username" placeholder="Enter Username" required> 
