@@ -59,7 +59,7 @@ include('db/super-auth.php');
    <div class="card mb-3">
             <ol class="breadcrumb">
           <li class="breadcrumb-item">
-          <a href="admindisease.php">Disease</a>
+          <a href="superadmindisease.php">Disease</a>
           </li>
           <li class="breadcrumb-item">
             Symptoms

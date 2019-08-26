@@ -1,17 +1,22 @@
 <?php
 include('db/connection.php');
-include('db/auth.php');
-?>
 
+$id = $_GET['id'];
+$sql = "SELECT * FROM health_tips WHERE id=" . $id;
+$result = mysqli_query($con,$sql);
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
+
   <title>MMRL</title>
 
   <!-- Custom fonts for this template-->
@@ -22,35 +27,110 @@ include('db/auth.php');
 
   <!-- Custom styles for this template-->
   <link href="css/sb-admin.css" rel="stylesheet">
+  
+  <style>
+  body {
+    background-color: #f5f5f5;
+  }
+  #announcements th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+    #announcements th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    color: white;
+  }
+
+  #announcements {
+    border: 1px solid #ddd;
+    border-collapse: collapse;
+    width:70%; 
+      margin-left:15%; 
+      margin-right:15%;
+  }
+
+  .newspaper {
+    margin: 2% 2% 2% 2%;
+    background-color: #fff;
+    border-style: outset;
+  }
+
+  .title {
+    padding: 0.2%;
+    background-color: #35a7db;
+    color: white;
+    padding-bottom: 1%;
+  }
+
+  .article {
+      display: inline-block;
+    }
+
+  .article
+  {
+    margin: 3%;
+    width: 90%;
+    font-size: 1em;
+    /* word-wrap: break-word; */
+  }
+
+  #float_img {
+    margin-right: 1%;
+    float:right;
+    width: 15%;
+    max-width: 500px;
+    max-height: 500px;
+  }
+
+  .article_footer{
+    height: 10px;
+    background-color: #35a7db;
+    color: white;
+  }
+
+  </style>
 
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
-  <!-- modal extensions -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body id="page-top">
-  <!-- include the header -->
-  <?php include('navigation/header.php'); ?>
-  <div id="wrapper">   
-  <!-- include the side nav -->
-  <?php include('navigation/side-nav.php'); ?>
-    <div id="content-wrapper">
-        <?php 
-           include('map/pinmap2.php');
-        ?>
-    </div>
+ 
+<div id="content-wrapper">
+      <div class="container-fluid">
+      <h2>  <i class="fa fa-bullhorn"></i> Health Tips</h2>
 
-  </div>
-  <!-- /#wrapper -->
+</div>
+<?php 
+while($row = mysqli_fetch_array($result)){
+    $title = $row['Title'];
+    $date_Created = date("D F d,Y h:s A", strtotime($row['date_created']));
+    $tips = $row['health_tips'];
+    $source = $row['source'];
+    $image = $row['images'];
+?>
+<div class="newspaper">
+<!-- title -->
+<div class="title"><center>
+  <h4><b> <?= $title ?> </b></h4>
+  <small> Posted: <?= $date_Created ?></small>
+</center></div>
+<div class="body">
+<div class="article"> 
+<img id="float_img" src="<?= $image ?>" alt="embedded_image">
+<p>These are the health tips for <?= $title ?>:</p>
+<p>
+<?= $tips ?>
+</p>
+</div>
+</div>
 
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
-
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="article_footer"></div>
+</div>
+<?php } ?>
+</body>
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -68,7 +148,7 @@ include('db/auth.php');
     </div>
   </div>
 
-
+  
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -87,7 +167,5 @@ include('db/auth.php');
   <!-- Demo scripts for this page-->
   <script src="js/demo/datatables-demo.js"></script>
   <script src="js/demo/chart-area-demo.js"></script>
-
-</body>
 
 </html>

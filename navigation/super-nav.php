@@ -43,5 +43,10 @@
           <i class="fa fa-tasks"></i>
           <span>Outbreak</span></a>
       </li>
+      <li class="nav-item">
+          <a class="nav-link w3-bar-item w3-button w3-border-bottom" href="superadmin-prediction.php">
+          <i class="fa fa-chart-area"></i>
+          <span>Prediction</span></a>
+      </li>
     </ul>
 </div>

@@ -12,11 +12,11 @@ session_start();
     $password = $_POST['password'];
 
     $result = mysqli_query($conn,"SELECT *  from admin where username = '$username' and status_credential=1");
-     
+
     if( mysqli_num_rows($result) > 0 )
     {
       $row = mysqli_fetch_array($result);
-      //created status in admin table -> 3 as superadmin; 
+      //created status in admin table -> 3 as superadmin;
       if($row['username'] == $username && $row['password'] == $password && $row['status'] == 2 )
       {
         $_SESSION['username'] = $username;
@@ -24,9 +24,9 @@ session_start();
         if($row['status'] == 2){
           $_SESSION['role'] = "Super Admin";
         }
-        
+
         $message_success ="Successfully login!";
-        header("Refresh:3; url=superadmin.php");
+        header("Refresh:1; url=superadmin.php");
         //header('location:superadmin.php');
       }
 
@@ -38,14 +38,14 @@ session_start();
         $_SESSION['admin']= $username;
         $admin = $_SESSION['admin'];
 
-        
+
         if($row['status'] == 1){
           $_SESSION['role'] = "Admin";
         }
-      
+
 
         $result2 =mysqli_query($conn,"SELECT *  from admin where admin = '$admin'");
-        
+
         $message_success ="Successfully login!";
         header("Refresh:3; url=admin.index.php");
         //header('location: admin.index.php');
@@ -64,9 +64,14 @@ session_start();
 ?>
 <html>
 <style>
+.breadcrumb {
+    z-index: 3;
+    margin-top: -4%;
+    margin-bottom: -10%;
+}
 .loginbox{
   width: 50%;
-  height: 65%;
+  height: 66%;
   background: rgba(0,0,0,0.4);
   color: #fff;
   top: 50%;
@@ -94,7 +99,7 @@ h3{
 }
 .loginbox p{
   margin: 0;6
-  padding: 0; 
+  padding: 0;
   font-weight: bold;
 
 }
@@ -142,7 +147,7 @@ color: #000;
   color:#ffc107;
 }
 .sign{
-text-align: center; 
+text-align: center;
 }
 .sign a{
   font-size: 150%;
@@ -208,7 +213,7 @@ color: #fff;
    <script src="sweetalert2/sweetalert2.all.min.js"></script>
 <script src="sweetalert2/dist/sweetalert2.min.js"></script>
 <link rel="stylesheet" href="sweetalert2/sweetalert2.min.css">
-<body> 
+<body>
    <header>
       <h4 style="font-color:#000000">Communicable Diseases, Reduction and Awareness</h4>
       <div class="menu">
@@ -222,7 +227,7 @@ color: #fff;
   </header>
     <div class="loginbox">
     <img src="pic2.png" class="avatar">
-    <h3>Admin Login</h3>
+    <h3 style="margin-top: -3%;">Admin Login</h3>
       <?php if(!empty($message_success)){  ?>
       <ol class="breadcrumb" style="color:white;background-color:#277546;border-radius:12px;">
         <?php echo $message_success;  ?>
@@ -235,12 +240,12 @@ color: #fff;
       <?php } ?>
        <p>Username</p>
        <form method="POST"  action="">
-       <input type="text"  name="username" placeholder="Enter Username" required> 
+       <input type="text"  name="username" placeholder="Enter Username" required>
        <p>Password</p>
        <input type="Password" name="password" placeholder="Enter Password" required>
        <input type="submit" name="btn_login" value="Login">
-       <div class="sign">
-       Don't have an account? <a href="register.php" style="font-size: 16px;color:yellow">Click here</a><br>
+       <div class="sign" >
+       Don't have an account? <a href="register.php" style="font-size: 16px;color:yellow;">Click here</a><br>
        Forgot Password? <a href="forgetPassword.php" style="font-size: 16px;color:yellow">Click here</a>
      </div>
      <br>

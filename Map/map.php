@@ -43,9 +43,12 @@
 		}
 
 		public function getAllMarker($fromDate,$endDate) {
-			$sql = "SELECT address, predicted_disease as disease_name , latitude as lat ,longitude as lng, COUNT(predicted_disease) as total FROM patient WHERE status=1";
+			$sql = "SELECT p.address, p.predicted_disease as disease_name , p.latitude as lat ,p.longitude as lng, COUNT(p.predicted_disease) as total, s.symptoms_name, count(s.symptoms_name) as count FROM disease_symptoms ds 
+			INNER JOIN disease d ON d.disease_id = ds.disease_id 
+			INNER JOIN symptoms s ON s.symptoms_id = ds.symptoms_id 
+			INNER JOIN patient p ON p.predicted_disease = d.disease_name";
 		  if(!empty($fromDate) && !empty($endDate)){ $sql .= " AND date_created  between '".$fromDate."' and '".$endDate."' ";}
-		  $sql .= " GROUP BY address, predicted_disease HAVING COUNT(predicted_disease) > 0";
+		  $sql .= " GROUP BY p.address, s.symptoms_name HAVING COUNT(predicted_disease) > 0";
 			$stmt = $this->conn->prepare($sql);
 			$stmt->execute();
 			return $stmt->fetchAll(PDO::FETCH_ASSOC);

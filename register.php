@@ -1,6 +1,6 @@
 <?php
 include('db/connection.php');
-$errors = array(); 
+$errors = array();
 $message_success = "";
 
    if (isset($_POST['username'])){
@@ -16,35 +16,38 @@ $message_success = "";
       // $landline = $_POST['landline'];
       $Gender   = $_POST['Gender'];
 
-      // first check the database to make sure 
+      // first check the database to make sure
 		  // a user does not already exist with the same username and/or email
 		  $user_check_query = "SELECT * FROM admin WHERE username='$username' OR email_address='$email' LIMIT 1";
 		  $result = mysqli_query($con, $user_check_query);
 		  $user = mysqli_fetch_assoc($result);
-		  
+
 		  if ($user) { // if user exists
-			array_push($errors, "Unable to register.");
-			if ($user['username'] === $username) {
-			  array_push($errors, "Username already exists");
-			}
+        //array_push($errors, "Unable to register.");
+        if($user['username'] === $username && $user['email_address'] === $email){
+          array_push($errors, "Username and email already exists. ");
+        } else {
+          if ($user['username'] === $username) {
+            array_push($errors, "Username already exists. ");
+          }
 
-			if ($user['email_address'] === $email) {
-			  array_push($errors, "email already exists");
-			}
-
+          if ($user['email_address'] === $email) {
+            array_push($errors, "Email already exists. ");
+          }
+        }
       } else {
               //for activation code
               function generateRandomString($length = 15) {
                 return substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil($length/strlen($x)) )),1,$length);
                 }
                 $activation_code = generateRandomString();
-          
+
                 //insert in email verification
                 $email_sql = "INSERT INTO email_verification (email,activation_code)  VALUES ('$email','$activation_code')";
                 if (mysqli_query($con, $email_sql)) {
                     if(!empty($email)){
                       require_once ("email-verify-mail.php");
-                    } 
+                    }
                 }
 
               $sql = "INSERT INTO `admin` (`ID`, `username`, `email_address`, `password`, `first_name`, `last_name`, `birth_date`, `address`, `contact_no`, `Gender`) VALUES (NULL, '$username', '$email', '$pass', '$firstname','$lastname','$birthdate','$address','$contact', '$Gender')";
@@ -56,7 +59,7 @@ $message_success = "";
                   echo "Error: " . $sql . "<br>" . $con->error;
               }
       }
-      
+
 
 
 }
@@ -65,12 +68,18 @@ $message_success = "";
 <html>
 <head></head>
 <style>
+
+.breadcrumb {
+    z-index: 3;
+    margin-top: -3%;
+    height: 10%;
+}
 body{
   background:#c7c7c7;
 }
 
 .loginbox{
-  box-sizing: border-box;  
+  box-sizing: border-box;
   width: 1000px;
   height: 550px;
   background: rgba(0,0,0,0.4);
@@ -85,7 +94,7 @@ body{
 .avatar{
   width: 60px;
   height: 60px;
-  border-radius: 50%;  
+  border-radius: 50%;
   position: absolute;
   top:-20px;
   left:calc(50% - 50px);
@@ -99,7 +108,7 @@ h1{
 }
 .loginbox p{
   margin: 0;
-  padding: 0; 
+  padding: 0;
   font-weight: bold;
 
 }
@@ -203,9 +212,9 @@ color: #fff;
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
   <link rel="stylesheet" type="text/css" href="style.css">
-  
+
   <link href="css/bootstrap.min.css" rel="stylesheet">
-<body> 
+<body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <header>
@@ -220,20 +229,17 @@ color: #fff;
     </div>
   </header>
     <div class="container">
+
     </div>
     <div class="loginbox">
     <img src="pic2.png" class="avatar">
     <h1>Admin Registration</h1>
-     <!-- Breadcrumbs-->
-    
-     <?php if(!empty($errors)){ include('errors.php'); } ?>
-
+    <?php if(!empty($errors)){ include('errors.php'); } ?>
     <?php if(!empty($message_success)){  ?>
     <ol class="breadcrumb" style="color:white;background-color:#277546;border-radius:12px;">
       <?php echo $message_success;  ?>
     </ol>
     <?php } ?>
-    
        <div class="form-group">
        <form method="POST" action="">
         <div class="row">
@@ -250,12 +256,12 @@ color: #fff;
        <div class="col-sm-6">
         <p>First Name</p>
        <input type="text" pattern="^\D*$" name="firstname" class="form-control"placeholder="Enter Firstname" required>
-       
+
        </div>
         <div class="col-sm-6">
         <p>Last Name</p>
         <input type="text" pattern="^\D*$" name="lastname" class="form-control"placeholder="Enter lastname" required>
-       
+
        </div>
        <div class="col-sm-6">
         <p>Birthdate</p>
@@ -272,7 +278,7 @@ color: #fff;
           <input type="radio" name="Gender" value="female"> Female<br>
         </label>
        </div>
-       
+
        <div class="col-sm-6">
         <p>Contact number</p>
         <input type="text" pattern="\d*" maxlength="13" name="contact" class="form-control"placeholder="Enter contact number XXXX-XXXX-XXX" required>
@@ -291,7 +297,7 @@ color: #fff;
        <!-- <div class="col-sm-6">
         <p>land-line number</p>
         <input type="text" pattern="[0-9]{3}-[0-9]{4}" name="landline" class="form-control"placeholder="Enter Land-line number XXX-XXXX" required>
-        
+
        </div> -->
        <!-- <div class="col-sm-6">
         <p>barangay</p>
@@ -327,7 +333,7 @@ color: #fff;
       </select>
        </div> -->
 
-      
+
         <br>
         <br>
        <input type="submit" name="btn_login" value="Sign up">

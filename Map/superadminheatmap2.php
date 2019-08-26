@@ -185,7 +185,7 @@
 	<div class="col-xs-6" id="pinpoint"> 	
 	&nbsp; &nbsp;<label>Filter Pinpoint: &nbsp;</label>
 		<br>		
-		<form action="pinmap2.php" name="pinpointForm" method="post">
+		<form action="superadminpinmap2.php" name="pinpointForm" method="post">
 			<input class="hidden" type="text" id="fDate" name="fromDate">
 			<input class="hidden" type="text" id="eDate" name="endDate">
 			&nbsp; &nbsp;

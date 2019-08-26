@@ -38,7 +38,7 @@ echo '<input class=hidden id=Date2 value=' . $endDate . '/>';
 	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="style.css">
-	<script type="text/javascript" src="js/map.js"></script>
+	<script type="text/javascript" src="js/googlemap.js"></script>
 	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 	<script>
 		$(document).ready(function(){
@@ -157,10 +157,10 @@ echo '<input class=hidden id=Date2 value=' . $endDate . '/>';
 
 <div id="floating-panel">
 		<h3 class="title">Disease</h3>
-		<form action="heatmap.php" method="post">
+		<form action="superheatmap.php" method="post">
 		<?php
 			//select distinct disease and its count
-			$sqlDisease = "SELECT predicted_disease as disease, count(predicted_disease) as count FROM patient";
+			$sqlDisease = "SELECT predicted_disease as disease, count(predicted_disease) as count FROM patient WHERE status=1";
 			// Date filter
 			if(isset($_POST['but_search'])){
 				$fromDate = $_POST['fromDate'];
@@ -191,7 +191,7 @@ echo '<input class=hidden id=Date2 value=' . $endDate . '/>';
 <div class="filterMap">
 <div class="col-xs-12">
   <div class="col-xs-6">
-  <form method='post' action='heatmap.php' style="margin-left:15px;" autocomplete="off">
+  <form method='post' action='superheatmap2.php' style="margin-left:15px;" autocomplete="off">
 		<label>Filter Date: &nbsp;</label>
 		<br>
 		<input type='date' style="width:40%" placeholder="Start Date" class='dateFilter' name='fromDate' onchange="getValue()" id="fromDate" value='<?php if(isset($fromDate)){echo $fromDate; }?>' required> 				
@@ -202,7 +202,7 @@ echo '<input class=hidden id=Date2 value=' . $endDate . '/>';
   </div>
   <div class="col-xs-6" id="pinpoint">
   <label>Filter Pinpoint: &nbsp;</label><br>
-  <form action="pinmap.php" method="post">
+  <form action="pinmap2.php" method="post">
 <input type='date' placeholder="Start Date" class='dateFilter hidden' name='fromDate' onchange="getValue()" id="fDate" value='<?php if(isset($fromDate)){echo $fromDate; }?>' > 
 <input type='date' placeholder="End Date" class='dateFilter hidden' name='endDate' onchange="getValue()" id="eDate" value='<?php if(isset($endDate)) echo $endDate; ?>' >
 <select style="width:40%" class="btn btn-primary dropdown-toggle" name="address">

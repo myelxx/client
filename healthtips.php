@@ -1,15 +1,4 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "health";
-
-$con=mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-if (mysqli_connect_errno())
-{
-echo "Failed to connect to MySQL: " . mysqli_connect_error();
-}
 
 include('db/connection.php');
 if(isset($_POST['btnSubmit'])){

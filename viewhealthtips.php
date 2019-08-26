@@ -2,7 +2,7 @@
 include('db/connection.php');
 include('db/auth.php');
 
-$sql = "SELECT * FROM health_tips";
+$sql = "SELECT * FROM health_tips WHERE id=" . $id;
 $result = mysqli_query($con,$sql);
 
 

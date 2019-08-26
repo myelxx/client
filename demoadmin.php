@@ -587,6 +587,7 @@ $row4 = mysqli_fetch_array($result);
                     );
                     $display_disease="Mallaria";
                     $disease_sql = "SELECT s.symptoms_name, count(s.symptoms_name) as count FROM disease_symptoms ds INNER JOIN disease d ON d.disease_id = ds.disease_id INNER JOIN symptoms s ON s.symptoms_id = ds.symptoms_id INNER JOIN patient p ON p.disease_id = ds.disease_id WHERE d.disease_name = '".$display_disease."' AND ".$filterDate."GROUP BY s.symptoms_name";
+                    
                     $disease_result = $conn->query($disease_sql);
                       if ($disease_result->num_rows > 0) {
                         // output data of each row
