@@ -34,7 +34,7 @@
         "datatables.net-bs4": "1.10.19",
         "jquery": "3.3.1",
         "jquery.easing": "^1.4.1",
-        "jspdf": "^1.5.3"
+        "jspdf": "^2.5.1"
     },
     "devDependencies": {
         "browser-sync": "2.26.3",
